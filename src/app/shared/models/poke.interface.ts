@@ -115,12 +115,15 @@ export interface IAbilityDetail {
   effect_changes: IEffectChange[];
   effect_entries: IEffect[];
   flavor_text_entries: IFlavorText[];
-  generation: {};
-  id: 1;
-  is_main_series: true;
-  name: 'stench';
-  names: [];
-  pokemon: [];
+  generation: {
+    name: string;
+    url: string;
+  };
+  id: number;
+  is_main_series: boolean;
+  name: string;
+  names: IAbilityName[];
+  pokemon: IAbilityPokemon[];
 }
 
 export interface IEffect {
@@ -150,4 +153,18 @@ export interface IFlavorText {
     name: string;
     url: string;
   };
+}
+
+export interface IAbilityPokemon {
+  is_hidden: boolean;
+  pokemon: IPokemon;
+  slot: number;
+}
+
+export interface IAbilityName {
+  language: {
+    name: string;
+    url: string;
+  };
+  name: string;
 }

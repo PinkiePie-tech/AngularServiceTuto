@@ -3,6 +3,7 @@ import { Injectable } from '@angular/core';
 import { map, Observable, of } from 'rxjs';
 import {
   IAbility,
+  IAbilityDetail,
   IAbilityList,
   IPokeList,
   IPokemon,
@@ -88,10 +89,10 @@ export class PokeService {
       .pipe(map((val) => val.results));
   }
 
-  public getPokemonAbilityByName(name: string): Observable<any> {
+  public getPokemonAbilityByName(name: string): Observable<IAbilityDetail> {
     /** l'url pour cette api sera la suivante : `https://pokeapi.co/api/v2/ability/${name}`, aucune interface n'a été créé pour cette route, il faudra donc remplacer "any" par le type que tu auras créé, ce type correspondra exactement au retour de l'api
      */
-    return this.httpClient.get<any>(
+    return this.httpClient.get<IAbilityDetail>(
       `https://pokeapi.co/api/v2/ability/${name}`
     );
   }
