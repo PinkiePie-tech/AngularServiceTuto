@@ -1,10 +1,14 @@
 import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
-import { Observable, of } from 'rxjs';
+import { map, Observable, of } from 'rxjs';
 import {
+  IAbility,
+  IAbilityList,
+  IPokeList,
   IPokemon,
   IPokemonDetail,
   IPokemonShortDetail,
+  IPokemonType,
 } from '../models/poke.interface';
 
 @Injectable({
@@ -21,42 +25,74 @@ export class PokeService {
    * le `return of()` est juste présent pour que tu puisses voir les résultats, un fois la fonction codé, tu devras supprimer cette ligne de code pour voir le résultat apparaitre dans la console
    */
 
-  public getPokemon(): Observable<IPokemon> {
+  public getPokemon(): Observable<IPokemon[]> {
     /** l'url pour cette api sera la suivante : 'https://pokeapi.co/api/v2/pokemon' */
-    return of();
+    return this.httpClient
+      .get<IPokeList>('https://pokeapi.co/api/v2/pokemon')
+      .pipe(map((val) => val.results));
   }
 
   public getPokemonByName(name: string): Observable<IPokemonDetail> {
     /** l'url pour cette api sera la suivante : `https://pokeapi.co/api/v2/pokemon/${name}` */
-    return of();
+    return this.httpClient.get<IPokemonDetail>(
+      `https://pokeapi.co/api/v2/pokemon/${name}`
+    );
   }
 
   public getPokemonById(id: number): Observable<IPokemonDetail> {
     /** l'url pour cette api sera la suivante : `https://pokeapi.co/api/v2/pokemon/${number}` */
-    return of();
+    return this.httpClient.get<IPokemonDetail>(
+      `https://pokeapi.co/api/v2/pokemon/${id}`
+    );
   }
 
-  public getPokemonSorted(sort?: 'asc' | 'desc'): Observable<IPokemon> {
+  public getPokemonSorted(sort?: 'asc' | 'desc'): Observable<IPokemon[]> {
     /** l'url pour cette api sera la suivante : `https://pokeapi.co/api/v2/pokemon`
      * un paramètre a été ajouté, "sort" pourra être ascendant ou descendant, en fonction de la valeur qu'il prendra, les deux valeurs possible de "sort" sont 'asc' et 'desc'
      * Tu dois donc créer une condition pour transformer la donnée reçu et la trier en fonction de la valeur de sort, si aucune valeur n'est précisée, alors tu devras renvoyer le tableau comme il a été reçu
      */
-    return of();
+    return this.getPokemon().pipe(
+      map((val) => {
+        if (!sort) {
+          return val;
+        }
+        return val.sort((a, b) =>
+          sort === 'asc'
+            ? a.name.localeCompare(b.name)
+            : b.name.localeCompare(a.name)
+        );
+      })
+    );
   }
 
   public getShortInfoByName(name: string): Observable<IPokemonShortDetail> {
     /** l'url pour cette api sera la suivante : `https://pokeapi.co/api/v2/pokemon/${name}`, le but sera de transformer la donnée pour ne prendre que l'essentiel, l'interface proposée a déjà été détaillée */
-    return of();
+    return this.getPokemonByName(name).pipe(
+      map((pokemon: IPokemonDetail) => {
+        return {
+          id: pokemon.id,
+          name: pokemon.name,
+          weight: pokemon.weight,
+          height: pokemon.height,
+          species: pokemon.species.name,
+          types: pokemon.types.map((type: IPokemonType) => type.type.name),
+        } as IPokemonShortDetail;
+      })
+    );
   }
 
-  public getPokemonAbilities(): Observable<any> {
+  public getPokemonAbilities(): Observable<IAbility[]> {
     /** l'url pour cette api sera la suivante : `https://pokeapi.co/api/v2/ability`, aucune interface n'a été créé pour cette route, il faudra donc remplacer "any" par le type que tu auras créé, ce type correspondra exactement au retour de l'api*/
-    return of();
+    return this.httpClient
+      .get<IAbilityList>('https://pokeapi.co/api/v2/ability')
+      .pipe(map((val) => val.results));
   }
 
   public getPokemonAbilityByName(name: string): Observable<any> {
     /** l'url pour cette api sera la suivante : `https://pokeapi.co/api/v2/ability/${name}`, aucune interface n'a été créé pour cette route, il faudra donc remplacer "any" par le type que tu auras créé, ce type correspondra exactement au retour de l'api
      */
-    return of();
+    return this.httpClient.get<any>(
+      `https://pokeapi.co/api/v2/ability/${name}`
+    );
   }
 }

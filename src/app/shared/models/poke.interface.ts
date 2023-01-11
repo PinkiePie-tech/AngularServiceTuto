@@ -3,6 +3,11 @@ export interface IPokemon {
   url: string;
 }
 
+export interface IAbility {
+  name: string;
+  url: string;
+}
+
 export interface IPokemonDetail {
   abilities: IAbility[];
   base_experience: number;
@@ -90,4 +95,59 @@ export interface IAbility {
   };
   is_hidden: boolean;
   slot: number;
+}
+
+export interface IPokeList {
+  count: number;
+  next: string;
+  previous: string;
+  results: IPokemon[];
+}
+
+export interface IAbilityList {
+  count: number;
+  next: string;
+  previous: string;
+  results: IAbility[];
+}
+
+export interface IAbilityDetail {
+  effect_changes: IEffectChange[];
+  effect_entries: IEffect[];
+  flavor_text_entries: [];
+  generation: {};
+  id: 1;
+  is_main_series: true;
+  name: 'stench';
+  names: [];
+  pokemon: [];
+}
+
+export interface IEffect {
+  effect: string;
+  language: {
+    name: string;
+    url: string;
+  };
+  short_effect?: string;
+}
+
+export interface IEffectChange {
+  effect_entries: IEffect[];
+  version_group: {
+    name: string;
+    url: string;
+  };
+}
+
+export interface IFlavorText {
+  flavor_text: string;
+  language: {
+    name: string;
+    url: string;
+  };
+  version_group: {
+    name: string;
+    url: string;
+  };
 }
