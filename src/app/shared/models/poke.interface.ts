@@ -114,7 +114,7 @@ export interface IAbilityList {
 export interface IAbilityDetail {
   effect_changes: IEffectChange[];
   effect_entries: IEffect[];
-  flavor_text_entries: [];
+  flavor_text_entries: IFlavorText[];
   generation: {};
   id: 1;
   is_main_series: true;
