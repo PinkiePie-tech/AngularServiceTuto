@@ -168,3 +168,16 @@ export interface IAbilityName {
   };
   name: string;
 }
+
+export interface ITemporaire1 {
+  ability: string[];
+  name: string;
+  stats: IPokemonStat[];
+  types: IPokemonType[];
+  indices: string;
+}
+
+export interface ITemporaire2 {
+  stats: IPokemonStat[];
+  types: IPokemonType[];
+}

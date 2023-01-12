@@ -11,7 +11,10 @@ import {
   IPokemon,
   IPokemonDetail,
   IPokemonShortDetail,
+  IPokemonStat,
   IPokemonType,
+  ITemporaire1,
+  ITemporaire2,
 } from '../models/poke.interface';
 
 @Injectable({
@@ -20,11 +23,11 @@ import {
 export class PokeService {
   constructor(private httpClient: HttpClient) {}
 
-  public getAnObjectWithUrl(name: string) {
+  public getAnObjectWithUrl(name: string): Observable<IPokemonStat[]> {
     return this.httpClient
-      .get(`https://pokeapi.co/api/v2/pokemon/${name}`)
+      .get<IPokemonDetail>(`https://pokeapi.co/api/v2/pokemon/${name}`)
       .pipe(
-        map((value: any) => {
+        map((value: IPokemonDetail) => {
           return {
             ability: value.abilities.map((ability) => {
               return ability.name;
@@ -37,23 +40,23 @@ export class PokeService {
               .join(', '),
           };
         }),
-        map((value) => {
+        map((value: ITemporaire1) => {
           return {
             stats: value.stats,
             types: value.types.sort((a, b) => a.slot - b.slot),
           };
         }),
-        map((value) => {
+        map((value: ITemporaire2) => {
           return value.stats.filter((stat) => stat.stat.name === 'hp');
         })
       );
   }
 
-  public getAnObjectWithUrlRandom(name: string) {
+  public getAnObjectWithUrlRandom(name: string): Observable<ITemporaire1> {
     return this.httpClient
-      .get(`https://pokeapi.co/api/v2/pokemon/${name}`)
+      .get<IPokemonDetail>(`https://pokeapi.co/api/v2/pokemon/${name}`)
       .pipe(
-        map((value: any) => {
+        map((value: IPokemonDetail) => {
           return {
             ability: value.abilities.map((ability) => {
               return ability.name;
@@ -66,24 +69,26 @@ export class PokeService {
               .join(', '),
           };
         }),
-        map((value) => {
+        map((value: ITemporaire1) => {
           return {
             ...value,
             types: value.types.sort((a, b) => a.slot - b.slot),
-            stats: value.stats.sort((a, b) => a.slot - b.slot),
+            stats: value.stats.sort((a, b) => a.base_stat - b.base_stat),
           };
         })
       );
   }
 
-  public getAListByUrl() {
-    return this.httpClient.get(`https://pokeapi.co/api/v2/pokemon/`).pipe(
-      map((value: any) => {
-        return value.results;
-      }),
-      map((value) => {
-        return value.filter((val) => val.name.includes('a'));
-      })
-    );
+  public getAListByUrl(): Observable<IPokemon[]> {
+    return this.httpClient
+      .get<IPokeList>(`https://pokeapi.co/api/v2/pokemon/`)
+      .pipe(
+        map((value: IPokeList) => {
+          return value.results;
+        }),
+        map((value: IPokemon[]) => {
+          return value.filter((val) => val.name.includes('a'));
+        })
+      );
   }
 }
