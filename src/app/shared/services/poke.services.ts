@@ -5,6 +5,8 @@ import {
   IAbility,
   IAbilityDetail,
   IAbilityList,
+  IAbilityName,
+  IAbilityPokemon,
   IPokeList,
   IPokemon,
   IPokemonDetail,
@@ -89,11 +91,43 @@ export class PokeService {
       .pipe(map((val) => val.results));
   }
 
-  public getPokemonAbilityByName(name: string): Observable<IAbilityDetail> {
+  public getPokemonAbilityByName(name: string) {
     /** l'url pour cette api sera la suivante : `https://pokeapi.co/api/v2/ability/${name}`, aucune interface n'a été créé pour cette route, il faudra donc remplacer "any" par le type que tu auras créé, ce type correspondra exactement au retour de l'api
      */
-    return this.httpClient.get<IAbilityDetail>(
-      `https://pokeapi.co/api/v2/ability/${name}`
+    return this.httpClient
+      .get<IAbilityDetail>(`https://pokeapi.co/api/v2/ability/${name}`)
+      .pipe(
+        map((response: IAbilityDetail) => {
+          console.log('res', response);
+          return response.pokemon;
+        }),
+        map((suite: IAbilityPokemon[]) => {
+          console.log('suite', suite);
+          return suite.map((value: IAbilityPokemon) => {
+            return {
+              name: value.pokemon.name,
+              slot: value.slot,
+            };
+          });
+        }),
+        map((finish: { name: string; slot: number }[]) => {
+          console.log('finish', finish);
+          return finish.sort((a, b) => a.slot - b.slot);
+        })
+      );
+  }
+
+  public getAnObjectWithUrl(name: string) {
+    /** l'url pour cette api sera la suivante : `https://pokeapi.co/api/v2/ability/${name}`, aucune interface n'a été créé pour cette route, il faudra donc remplacer "any" par le type que tu auras créé, ce type correspondra exactement au retour de l'api
+     */
+    return this.httpClient.get<IPokemonDetail>(
+      `https://pokeapi.co/api/v2/pokemon/${name}`
+    ).pipe(
+      map((value: any) => {
+        return {
+          
+        }
+      })
     );
   }
 }
