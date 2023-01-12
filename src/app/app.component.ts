@@ -15,5 +15,13 @@ export class AppComponent {
       .getAnObjectWithUrl('wartortle')
       .pipe(take(1))
       .subscribe((val) => console.log('getAnObjectWithUrl', val));
+    this.pokeService
+      .getAnObjectWithUrlRandom('wartortle')
+      .pipe(take(1))
+      .subscribe((val) => console.log('getAnObjectWithUrlRandom', val));
+    this.pokeService
+      .getAListByUrl()
+      .pipe(take(1))
+      .subscribe((val) => console.log('getAListByUrl', val));
   }
 }

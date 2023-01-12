@@ -32,11 +32,72 @@ export class PokeService {
     /** l'url pour cette api sera la suivante : `https://pokeapi.co/api/v2/ability/${name}`, aucune interface n'a été créé pour cette route, il faudra donc remplacer "any" par le type que tu auras créé, ce type correspondra exactement au retour de l'api
      */
     return this.httpClient
-      .get<IPokemonDetail>(`https://pokeapi.co/api/v2/pokemon/${name}`)
+      .get(`https://pokeapi.co/api/v2/pokemon/${name}`)
       .pipe(
         map((value: any) => {
-          return value;
+          return {
+            ability: value.abilities.map((ability) => {
+              return ability.name;
+            }),
+            name: value.name,
+            stats: value.stats,
+            types: value.types,
+            indices: value.game_indices
+              .map((val) => val.version.name)
+              .join(', '),
+          };
+        }),
+        map((value) => {
+          return {
+            stats: value.stats,
+            types: value.types.sort((a, b) => a.slot - b.slot),
+          };
+        }),
+        map((value) => {
+          return value.stats.filter((stat) => stat.stat.name === 'hp');
         })
       );
+  }
+
+  public getAnObjectWithUrlRandom(name: string) {
+    /** l'url pour cette api sera la suivante : `https://pokeapi.co/api/v2/ability/${name}`, aucune interface n'a été créé pour cette route, il faudra donc remplacer "any" par le type que tu auras créé, ce type correspondra exactement au retour de l'api
+     */
+    return this.httpClient
+      .get(`https://pokeapi.co/api/v2/pokemon/${name}`)
+      .pipe(
+        map((value: any) => {
+          return {
+            ability: value.abilities.map((ability) => {
+              return ability.name;
+            }),
+            name: value.name,
+            stats: value.stats,
+            types: value.types,
+            indices: value.game_indices
+              .map((val) => val.version.name)
+              .join(', '),
+          };
+        }),
+        map((value) => {
+          return {
+            ...value,
+            types: value.types.sort((a, b) => a.slot - b.slot),
+            stats: value.stats.sort((a, b) => a.slot - b.slot),
+          };
+        })
+      );
+  }
+
+  public getAListByUrl() {
+    /** l'url pour cette api sera la suivante : `https://pokeapi.co/api/v2/ability/${name}`, aucune interface n'a été créé pour cette route, il faudra donc remplacer "any" par le type que tu auras créé, ce type correspondra exactement au retour de l'api
+     */
+    return this.httpClient.get(`https://pokeapi.co/api/v2/pokemon/`).pipe(
+      map((value: IPokeList) => {
+        return value.results;
+      }),
+      map((value) => {
+        return value.filter((val) => val.name.includes('a'));
+      })
+    );
   }
 }
