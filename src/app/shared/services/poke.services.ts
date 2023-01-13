@@ -1,6 +1,15 @@
 import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
-import { map, Observable, of } from 'rxjs';
+import {
+  filter,
+  forkJoin,
+  map,
+  mergeMap,
+  Observable,
+  of,
+  switchMap,
+  take,
+} from 'rxjs';
 import {
   IAbility,
   IAbilityDetail,
@@ -88,6 +97,43 @@ export class PokeService {
         }),
         map((value: IPokemon[]) => {
           return value.filter((val) => val.name.includes('a'));
+        })
+      );
+  }
+
+  public petitQuizDeLaFamille() {
+    /** Histoire de changer un peu, on va faire un petit quiz ( en vrai c'est la même chose qu'avant mais bon :D ) */
+
+    // Question 1: Que retourne cette observable, tu peux ajouter des types si ça t'aide :D
+    return this.httpClient.get(`https://pokeapi.co/api/v2/pokemon/`).pipe(
+      map((value: any) => {
+        if (value.results.length > 0) {
+          return value.results.map((result) => {
+            let id = result.url
+              .replace('https://pokeapi.co/api/v2/pokemon/', '')
+              .replace('/', '');
+            return {
+              id: +id,
+              name: result.name,
+              url: result.url,
+            };
+          });
+        }
+        return null;
+      }),
+      filter((v) => !!v) // Je le met ici histoire de commencer à découvrir l'opérateur rxjs 'filter', il permet de déclencher l'observable en fonction d'une condition, dans notre cas, si la valeur est null ou undefined, alors l'observable n'émettera pas de résultat. Dans le code, cela permet d'éviter de faire des traitements inutiles, on s'assure avec cette mesure que si nous n'avons aucun élément présent, rien ne se déclenche.
+    );
+  }
+
+  public hardcoreObservable() {
+    /** L'observable que tu va voir après ça va nous permettre de complexifier nos exos, mais il ne t'ai pas demandé de le comprendre :D */
+
+    return this.httpClient
+      .get<IPokeList>(`https://pokeapi.co/api/v2/pokemon/`)
+      .pipe(
+        switchMap((value: IPokeList) => {
+          console.log(value.results.map((v) => v.url));
+          return forkJoin(value.results.map((v) => v.url));
         })
       );
   }

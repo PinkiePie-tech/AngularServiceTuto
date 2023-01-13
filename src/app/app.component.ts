@@ -23,5 +23,9 @@ export class AppComponent {
       .getAListByUrl()
       .pipe(take(1))
       .subscribe((val) => console.log('getAListByUrl', val));
+    this.pokeService
+      .hardcoreObservable()
+      .pipe(take(1))
+      .subscribe((val) => console.log('hardcoreObservable', val));
   }
 }
