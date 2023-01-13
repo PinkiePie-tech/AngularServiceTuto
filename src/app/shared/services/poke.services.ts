@@ -7,6 +7,7 @@ import {
   mergeMap,
   Observable,
   of,
+  shareReplay,
   switchMap,
   take,
 } from 'rxjs';
@@ -32,75 +33,6 @@ import {
 export class PokeService {
   constructor(private httpClient: HttpClient) {}
 
-  public getAnObjectWithUrl(name: string): Observable<IPokemonStat[]> {
-    return this.httpClient
-      .get<IPokemonDetail>(`https://pokeapi.co/api/v2/pokemon/${name}`)
-      .pipe(
-        map((value: IPokemonDetail) => {
-          return {
-            ability: value.abilities.map((ability) => {
-              return ability.name;
-            }),
-            name: value.name,
-            stats: value.stats,
-            types: value.types,
-            indices: value.game_indices
-              .map((val) => val.version.name)
-              .join(', '),
-          };
-        }),
-        map((value: ITemporaire1) => {
-          return {
-            stats: value.stats,
-            types: value.types.sort((a, b) => a.slot - b.slot),
-          };
-        }),
-        map((value: ITemporaire2) => {
-          return value.stats.filter((stat) => stat.stat.name === 'hp');
-        })
-      );
-  }
-
-  public getAnObjectWithUrlRandom(name: string): Observable<ITemporaire1> {
-    return this.httpClient
-      .get<IPokemonDetail>(`https://pokeapi.co/api/v2/pokemon/${name}`)
-      .pipe(
-        map((value: IPokemonDetail) => {
-          return {
-            ability: value.abilities.map((ability) => {
-              return ability.name;
-            }),
-            name: value.name,
-            stats: value.stats,
-            types: value.types,
-            indices: value.game_indices
-              .map((val) => val.version.name)
-              .join(', '),
-          };
-        }),
-        map((value: ITemporaire1) => {
-          return {
-            ...value,
-            types: value.types.sort((a, b) => a.slot - b.slot),
-            stats: value.stats.sort((a, b) => a.base_stat - b.base_stat),
-          };
-        })
-      );
-  }
-
-  public getAListByUrl(): Observable<IPokemon[]> {
-    return this.httpClient
-      .get<IPokeList>(`https://pokeapi.co/api/v2/pokemon/`)
-      .pipe(
-        map((value: IPokeList) => {
-          return value.results;
-        }),
-        map((value: IPokemon[]) => {
-          return value.filter((val) => val.name.includes('a'));
-        })
-      );
-  }
-
   public petitQuizDeLaFamille() {
     /** Histoire de changer un peu, on va faire un petit quiz ( en vrai c'est la même chose qu'avant mais bon :D ) */
 
@@ -125,16 +57,29 @@ export class PokeService {
     );
   }
 
-  public hardcoreObservable() {
+  public hardcoreObservable(): Observable<IPokemonDetail[]> {
     /** L'observable que tu va voir après ça va nous permettre de complexifier nos exos, mais il ne t'ai pas demandé de le comprendre :D */
 
     return this.httpClient
       .get<IPokeList>(`https://pokeapi.co/api/v2/pokemon/`)
       .pipe(
         switchMap((value: IPokeList) => {
-          console.log(value.results.map((v) => v.url));
-          return forkJoin(value.results.map((v) => v.url));
-        })
+          // switchMap permet de passer d'un observable à un autre, dans notre cas présent, on passe d'un appel pour récupérer la liste des pokemons, et on switch sur un appel qui récupère les 20 détails de cahque pokemon
+          return forkJoin(
+            // forkJoin permet de faire des appels d'observable groupé, dans notre cas, on prend les 20 pokemons dans la liste de pokemon, et on effectue 20 appels réseaux, une fois les appels réseaux effectués, on retourne les 20 résultats, ce qui nous donnera un tableau de PokemonDetail
+            value.results.map((v) => this.httpClient.get<IPokemonDetail>(v.url))
+          );
+        }),
+        shareReplay({ refCount: true, bufferSize: 1 }) // shareReplay est aussi un opérateur, il va permettre d'éviter que si 50 personnes subscribe à cet observable, le résulat soit partagé et non recalculé, évitant ainsi 50 appels * 20 à l'api
       );
+  }
+
+  public filterOn(search: string): Observable<IPokemonDetail[]> {
+    /** Exo 2: harcodeObservable va renvoyer la liste complète des pokemons avec leur détails, le paramètre de la fonction search est une entrée d'un utilisateur qui tape une recherche dans notre barre de recherche
+     * Le but sera donc de filtrer la liste en fonctione de l'entrée utilisateur, cette entrée utilisateur peut correspondre à son nom, à une des abilités ou à son type
+     * en gros, si je tape 'grass', je dois récupérer les pokemons de type herbe, ou alors un pokemon s'appellant 'grass' ou une abilité nommée 'grass'
+     * Dans le monde du web, cette demande est la plus classique, un champs de recherche qui cherche dans plusieurs champs d'un objet
+     */
+    return this.hardcoreObservable().pipe(); // je t'ai mis en place l'appel, tu peux voir le résultat de cet appel dans la console
   }
 }
