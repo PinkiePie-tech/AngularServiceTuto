@@ -12,8 +12,12 @@ export class AppComponent {
 
   constructor(private pokeService: PokeService) {
     this.pokeService
-      .hardcoreObservable()
+      .petitQuizDeLaFamille()
       .pipe(take(1))
-      .subscribe((val) => console.log('hardcoreObservable', val));
+      .subscribe((val) => console.log('petitQuizDeLaFamille', val));
+    this.pokeService
+      .filterOn('bul')
+      .pipe(take(1))
+      .subscribe((val) => console.log('filterOn', val));
   }
 }
