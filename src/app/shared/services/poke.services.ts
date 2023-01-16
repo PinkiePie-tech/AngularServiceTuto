@@ -1,31 +1,10 @@
 import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
+import { forkJoin, Observable, of, shareReplay, switchMap } from 'rxjs';
 import {
-  filter,
-  forkJoin,
-  map,
-  mergeMap,
-  Observable,
-  of,
-  shareReplay,
-  switchMap,
-  take,
-} from 'rxjs';
-import {
-  IAbility,
-  IAbilityDetail,
-  IAbilityList,
-  IAbilityName,
-  IAbilityPokemon,
   IPokeList,
-  IPokemon,
   IPokemonDetail,
-  IPokemonShortDetail,
-  IPokemonStat,
-  IPokemonType,
   ISelectOption,
-  ITemporaire1,
-  ITemporaire2,
 } from '../models/poke.interface';
 
 @Injectable({

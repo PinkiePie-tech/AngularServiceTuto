@@ -1,4 +1,4 @@
-import { Component, VERSION } from '@angular/core';
+import { Component } from '@angular/core';
 import { FormControl, FormGroup } from '@angular/forms';
 import { combineLatest, Observable, startWith, take } from 'rxjs';
 import { map } from 'rxjs/operators';
@@ -12,9 +12,9 @@ import { PokeService } from './shared/services/poke.services';
 })
 export class AppComponent {
   public formGroup = new FormGroup({
-    search: new FormControl(''),
-    type: new FormControl(''),
-    ability: new FormControl(''),
+    search: new FormControl(),
+    type: new FormControl(),
+    ability: new FormControl(),
   });
   public typeOptions$: Observable<ISelectOption<number>[]>;
   public abilityOptions$: Observable<ISelectOption<number>[]>;
@@ -31,11 +31,10 @@ export class AppComponent {
           IPokemonDetail[]
         ]) => {
           console.log(formValues);
+          // Première étape, faire en sorte que la recherche fonctionne
           return data;
         }
       )
     );
-
-    this.formGroup.get('search').valueChanges.subscribe(console.log);
   }
 }
