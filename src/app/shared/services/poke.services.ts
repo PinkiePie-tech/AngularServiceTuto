@@ -30,12 +30,12 @@ export class PokeService {
       );
   }
 
-  public getTypes(): Observable<ISelectOption<number>> {
+  public getTypes(): Observable<ISelectOption<number>[]> {
     // Modifier cette fonction pour renvoyer le type suivant Observable<ISelectOption<number>> depuis l'url https://pokeapi.co/api/v2/type
     return of();
   }
 
-  public getZones(): Observable<ISelectOption<number>> {
+  public getZones(): Observable<ISelectOption<number>[]> {
     // Modifier cette fonction pour renvoyer le type suivant Observable<ISelectOption<number>> depuis l'url https://pokeapi.co/api/v2/ability
     return of();
   }
