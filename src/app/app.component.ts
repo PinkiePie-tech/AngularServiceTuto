@@ -1,23 +1,22 @@
 import { Component, VERSION } from '@angular/core';
-import { take } from 'rxjs';
+import { FormControl, FormGroup } from '@angular/forms';
+import { Observable, take } from 'rxjs';
+import { ISelectOption } from './shared/models/poke.interface';
 import { PokeService } from './shared/services/poke.services';
 
 @Component({
   selector: 'my-app',
   templateUrl: './app.component.html',
-  styleUrls: ['./app.component.css'],
+  styleUrls: ['./app.component.scss'],
 })
 export class AppComponent {
-  name = 'Angular ' + VERSION.major;
+  public formGroup = new FormGroup({
+    search: new FormControl(),
+    type: new FormControl(),
+    zone: new FormControl(),
+  });
+  public typeOptions$: Observable<ISelectOption<number>[]>;
+  public zoneOptions$: Observable<ISelectOption<number>[]>;
 
-  constructor(private pokeService: PokeService) {
-    this.pokeService
-      .petitQuizDeLaFamille()
-      .pipe(take(1))
-      .subscribe((val) => console.log('petitQuizDeLaFamille', val));
-    this.pokeService
-      .filterOn('bul')
-      .pipe(take(1))
-      .subscribe((val) => console.log('filterOn', val));
-  }
+  constructor(private pokeService: PokeService) {}
 }

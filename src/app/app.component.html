@@ -1,4 +1,17 @@
-<hello name="{{ name }}"></hello>
-<p>
-  Start editing to see some magic happen :)
-</p>
+<div [formGroup]="formGroup" class="search">
+  <input
+    formConrolName="search"
+    placeholder="Entrez votre recherche ici"
+    class="search-input"
+  />
+  <select formControlName="type" class="search-select">
+    <option *ngFor="let type of typeOptions$ | async" [value]="type.value">
+      {{ type.viewValue }}
+    </option>
+  </select>
+  <select formControlName="zone" class="search-select">
+    <option *ngFor="let zone of zoneOptions$ | async" [value]="zone.value">
+      {{ zone.viewValue }}
+    </option>
+  </select>
+</div>

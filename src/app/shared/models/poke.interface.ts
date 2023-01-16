@@ -3,11 +3,6 @@ export interface IPokemon {
   url: string;
 }
 
-export interface IAbility {
-  name: string;
-  url: string;
-}
-
 export interface IPokemonDetail {
   abilities: IAbility[];
   base_experience: number;
@@ -180,4 +175,9 @@ export interface ITemporaire1 {
 export interface ITemporaire2 {
   stats: IPokemonStat[];
   types: IPokemonType[];
+}
+
+export interface ISelectOption<T> {
+  value: T;
+  viewValue: string;
 }

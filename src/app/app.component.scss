@@ -1,0 +1,13 @@
+.search {
+  display: flex;
+  flex-direction: row;
+  gap: 5px;
+
+  &-input {
+    flex: 2;
+  }
+
+  &-select {
+    flex: 1;
+  }
+}

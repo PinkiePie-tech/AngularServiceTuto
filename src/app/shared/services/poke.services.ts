@@ -23,6 +23,7 @@ import {
   IPokemonShortDetail,
   IPokemonStat,
   IPokemonType,
+  ISelectOption,
   ITemporaire1,
   ITemporaire2,
 } from '../models/poke.interface';
@@ -32,30 +33,6 @@ import {
 })
 export class PokeService {
   constructor(private httpClient: HttpClient) {}
-
-  public petitQuizDeLaFamille() {
-    /** Histoire de changer un peu, on va faire un petit quiz ( en vrai c'est la même chose qu'avant mais bon :D ) */
-
-    // Question 1: Que retourne cette observable, tu peux ajouter des types si ça t'aide :D
-    return this.httpClient.get(`https://pokeapi.co/api/v2/pokemon/`).pipe(
-      map((value: any) => {
-        if (value.results.length > 0) {
-          return value.results.map((result) => {
-            let id = result.url
-              .replace('https://pokeapi.co/api/v2/pokemon/', '')
-              .replace('/', '');
-            return {
-              id: +id,
-              name: result.name,
-              url: result.url,
-            };
-          });
-        }
-        return null;
-      }),
-      filter((v) => !!v) // Je le met ici histoire de commencer à découvrir l'opérateur rxjs 'filter', il permet de déclencher l'observable en fonction d'une condition, dans notre cas, si la valeur est null ou undefined, alors l'observable n'émettera pas de résultat. Dans le code, cela permet d'éviter de faire des traitements inutiles, on s'assure avec cette mesure que si nous n'avons aucun élément présent, rien ne se déclenche.
-    );
-  }
 
   public hardcoreObservable(): Observable<IPokemonDetail[]> {
     /** L'observable que tu va voir après ça va nous permettre de complexifier nos exos, mais il ne t'ai pas demandé de le comprendre :D */
@@ -74,12 +51,13 @@ export class PokeService {
       );
   }
 
-  public filterOn(search: string): Observable<IPokemonDetail[]> {
-    /** Exo 2: harcodeObservable va renvoyer la liste complète des pokemons avec leur détails, le paramètre de la fonction search est une entrée d'un utilisateur qui tape une recherche dans notre barre de recherche
-     * Le but sera donc de filtrer la liste en fonctione de l'entrée utilisateur, cette entrée utilisateur peut correspondre à son nom, à une des abilités ou à son type
-     * en gros, si je tape 'grass', je dois récupérer les pokemons de type herbe, ou alors un pokemon s'appellant 'grass' ou une abilité nommée 'grass'
-     * Dans le monde du web, cette demande est la plus classique, un champs de recherche qui cherche dans plusieurs champs d'un objet
-     */
-    return this.hardcoreObservable().pipe(); // je t'ai mis en place l'appel, tu peux voir le résultat de cet appel dans la console
+  public getTypes(): Observable<ISelectOption<number>> {
+    // Modifier cette fonction pour renvoyer le type suivant Observable<ISelectOption<number>> depuis l'url https://pokeapi.co/api/v2/type
+    return of();
+  }
+
+  public getZones(): Observable<ISelectOption<number>> {
+    // Modifier cette fonction pour renvoyer le type suivant Observable<ISelectOption<number>> depuis l'url https://pokeapi.co/api/v2/region
+    return of();
   }
 }
