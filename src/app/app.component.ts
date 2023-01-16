@@ -21,6 +21,9 @@ export class AppComponent {
   public dataSource$: Observable<IPokemonDetail[]>;
 
   constructor(private pokeService: PokeService) {
+    this.typeOptions$ = this.pokeService.getTypes();
+    this.abilityOptions$ = this.pokeService.getAbilities();
+
     this.dataSource$ = combineLatest([
       this.formGroup.valueChanges.pipe(startWith(this.formGroup.getRawValue())),
       this.pokeService.hardcoreObservable(),
