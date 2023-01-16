@@ -1,7 +1,8 @@
 import { Component, VERSION } from '@angular/core';
 import { FormControl, FormGroup } from '@angular/forms';
-import { Observable, take } from 'rxjs';
-import { ISelectOption } from './shared/models/poke.interface';
+import { combineLatest, Observable, startWith, take } from 'rxjs';
+import { map } from 'rxjs/operators';
+import { IPokemonDetail, ISelectOption } from './shared/models/poke.interface';
 import { PokeService } from './shared/services/poke.services';
 
 @Component({
@@ -11,12 +12,30 @@ import { PokeService } from './shared/services/poke.services';
 })
 export class AppComponent {
   public formGroup = new FormGroup({
-    search: new FormControl(),
-    type: new FormControl(),
-    zone: new FormControl(),
+    search: new FormControl(''),
+    type: new FormControl(''),
+    ability: new FormControl(''),
   });
   public typeOptions$: Observable<ISelectOption<number>[]>;
-  public zoneOptions$: Observable<ISelectOption<number>[]>;
+  public abilityOptions$: Observable<ISelectOption<number>[]>;
+  public dataSource$: Observable<IPokemonDetail[]>;
 
-  constructor(private pokeService: PokeService) {}
+  constructor(private pokeService: PokeService) {
+    this.dataSource$ = combineLatest([
+      this.formGroup.valueChanges.pipe(startWith(this.formGroup.getRawValue())),
+      this.pokeService.hardcoreObservable(),
+    ]).pipe(
+      map(
+        ([formValues, data]: [
+          { search: string; type: string; ability: string },
+          IPokemonDetail[]
+        ]) => {
+          console.log(formValues);
+          return data;
+        }
+      )
+    );
+
+    this.formGroup.get('search').valueChanges.subscribe(console.log);
+  }
 }

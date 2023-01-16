@@ -11,3 +11,27 @@
     flex: 1;
   }
 }
+
+.tableau {
+  display: flex;
+  flex-direction: column;
+  gap: 2px;
+  margin-top: 10px;
+
+  &-line {
+    display: flex;
+    flex-direction: row;
+    gap: 5px;
+    flex: 1;
+    min-height: 30px;
+    max-height: 30px;
+    line-height: 30px;
+    border: 1px solid black;
+  }
+  &-value {
+    flex: 1;
+    text-overflow: ellipsis;
+    white-space: nowrap;
+    overflow: hidden;
+  }
+}

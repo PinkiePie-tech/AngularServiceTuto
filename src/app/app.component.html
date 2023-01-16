@@ -4,14 +4,34 @@
     placeholder="Entrez votre recherche ici"
     class="search-input"
   />
-  <select formControlName="type" class="search-select">
+  <select formControlName="type" class="search-select" placeholder="type">
     <option *ngFor="let type of typeOptions$ | async" [value]="type.value">
       {{ type.viewValue }}
     </option>
   </select>
-  <select formControlName="zone" class="search-select">
-    <option *ngFor="let zone of zoneOptions$ | async" [value]="zone.value">
-      {{ zone.viewValue }}
+  <select formControlName="ability" class="search-select" placeholder="ability">
+    <option
+      *ngFor="let ability of abilityOptions$ | async"
+      [value]="ability.value"
+    >
+      {{ ability.viewValue }}
     </option>
   </select>
+</div>
+<div class="tableau">
+  <div *ngFor="let data of dataSource$ | async" class="tableau-line">
+    <div class="tableau-value">{{ data.name }}</div>
+    <div class="tableau-value">
+      <span *ngFor="let type of data.types; last as isLast"
+        >{{ type.type.name
+        }}<ng-container *ngIf="!isLast">, </ng-container></span
+      >
+    </div>
+    <div class="tableau-value">
+      <span *ngFor="let ability of data.abilities; last as isLast"
+        >{{ ability.ability.name
+        }}<ng-container *ngIf="!isLast">, </ng-container></span
+      >
+    </div>
+  </div>
 </div>

@@ -57,7 +57,7 @@ export class PokeService {
   }
 
   public getZones(): Observable<ISelectOption<number>> {
-    // Modifier cette fonction pour renvoyer le type suivant Observable<ISelectOption<number>> depuis l'url https://pokeapi.co/api/v2/region
+    // Modifier cette fonction pour renvoyer le type suivant Observable<ISelectOption<number>> depuis l'url https://pokeapi.co/api/v2/ability
     return of();
   }
 }
