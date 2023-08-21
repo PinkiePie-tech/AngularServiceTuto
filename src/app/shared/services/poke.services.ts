@@ -116,18 +116,4 @@ export class PokeService {
         })
       );
   }
-
-  public getAnObjectWithUrl(name: string) {
-    /** l'url pour cette api sera la suivante : `https://pokeapi.co/api/v2/ability/${name}`, aucune interface n'a été créé pour cette route, il faudra donc remplacer "any" par le type que tu auras créé, ce type correspondra exactement au retour de l'api
-     */
-    return this.httpClient.get<IPokemonDetail>(
-      `https://pokeapi.co/api/v2/pokemon/${name}`
-    ).pipe(
-      map((value: any) => {
-        return {
-          
-        }
-      })
-    );
-  }
 }

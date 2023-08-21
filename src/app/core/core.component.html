@@ -1,0 +1,48 @@
+<h1>Bienvenue dans ce petit tuto Observable</h1>
+
+<div>
+    Pour rappel, un observable est un typage provenant de rxjs, elle permet d'anticiper l'arrivée d'une valeur en préparant son traitement.
+    Par exemple, on utilise les observables lors d'un appel réseau, d'une entrée utilisateur, d'un click sur un bouton. L'observabilité permet d'avoir des sites qui se réactualise au changement de valeur.
+</div>
+<br>
+<div>
+    Un observable peut se découper en 3 parties, la première est l'observable lui même, ce qui génère la donnée de base.
+    Cette donnée de base peut être généré par plusieurs évènements comme cité plus haut, ça peut être un Observable comme une combinaison d'Observable
+    Voici quelques exemples d'Observable
+    <ul>
+        <li>
+            of("maValeur") va créer un observable contenant maValeur, très utilisé pour la création de mock ou dans des catchError
+        </li>
+        <li>
+            timer(2000) va créer un observable qui va se déclencher au bout de 2000 ms, utilise pour créer des exercices comme ceux d'aujourd'hui, ou alors générer une fausse durée d'attente lors d'un mock pour simuler l'attente réseau ou une connexion en carton pate
+        </li>
+        <li>
+            interval(2000) va créer un observable qui va se déclencher toutes les 2000 ms, utilise pour créer des exercices comme ceux d'aujourd'hui
+        </li>
+        <li>
+            Les FormControl, particularité propre à Angular, permettront d'avoir des observables lié à des évènements sur les formulaires, facilitant ainsi la récupération des données
+        </li>
+        <li>
+            httpService est un service qui va générer des Observable à partir d'un appel réseau, on retrouvera http.get, .post, .put, .delete dans la liste des appels possibles
+        </li>
+        <li>
+            Les Subjects, le plus commun étant le BehaviorSubject, il permet de créer un observable qui pourra être déclenché via le code et non une action extérieur. On le rattachera souvent à des évènements extérieurs n'ayant pas de concept d'observabilité ( un clic ou un système de refresh de donnée )
+        </li>
+    </ul>
+    <br>
+    La deuxième partie est la partie souscription, cette partie permet d'activer l'Observable. Un observable peut être créé mais peut être souscris à un autre moment, ce moment est décidé lors de la subscription.
+    Il y a deux manières de souscrire à un Observable.
+    <br>
+    La première est via un .subscribe((maValeur) =&gt; &#123; //mon traitement typescript &#125;), le subscribe permettra de récupérer la valeur contenu dans l'Observable et d'effectuer l'action que l'on souhaite avec cette valeur.
+    Dans la plupart des cas, le subscribe est utilisé lors des appels POST, PUT ou DELETE, la plupart des souscriptions doivent se faire via la vue html, cela évite la gestion des souscription
+    <br>
+    Mais c'est quoi la gestion des souscriptions, lors d'une souscription à un observable, on se retrouve avec une action qui se déclenche avec un évènement, mais si on change de page par exemple, l'observable lui continue de déclencher ses évènements, on peut donc se retrouver avec une action qui persiste alors que la page a été quittée.
+    Ce genre de soucis peut causer des problèmes mémoire, voir des appels intensifs au niveau du réseau. pour éviter cela, on déclare au début de son composant une variable qui va receuillir les souscriptions qui sera de type Subscription, sous la forme "private subs = new Subscription()"
+    Une fois déclaré, si un subscribe se retrouve dans le code, on engobera le subscribe avec un add, donnant ce genre de code "this.subs.add(of("maValeur").subscribe(maValeur =&gt; &#123; // mon code TS &#125;))"
+    On rajoutera aussi une méthode ngOnDestroy où on se désabonnera des souscriptions effectuées, avec un this.subs.unsubscribe()
+    Les subscribes sont souvent utilisés pour des évènements comme POST, PUT ou DELETE, ses évènements étant des one shoot, on utilisera un opérateur nommé "take(1)", cette opérateur se situera dans le pipe et permettra de souscrire une fois et ensuite de s'auto-unsubscribe, évitant ainsi la partie gestion des souscriptions
+    <br>
+    C'est pourquoi il est intéressant de subscribe via la vue html, un simple "| async" permettra de gérer le subscribe et la partie unsubscribe sans créer de nouvelles fonctions
+    Pour rappel, chaque souscription déclenchera les évènements, si l'Observable est par exemple un appel réseau, si 15 | async
+</div>
+
