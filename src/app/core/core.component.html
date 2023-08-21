@@ -44,5 +44,41 @@
     <br>
     C'est pourquoi il est intéressant de subscribe via la vue html, un simple "| async" permettra de gérer le subscribe et la partie unsubscribe sans créer de nouvelles fonctions
     Pour rappel, chaque souscription déclenchera les évènements, si l'Observable est par exemple un appel réseau, si 15 | async
+    <br>
+    <br>
+    La dernière partie est la transformation, alors la c'est la fête, on peut changer du tout au tout la donnée, pour cela, on va utiliser des opérateurs rxjs, une bibliothèque typescript bien pratique pour notre cas ^^
+    il existe moulte opérateur mais certain sont redondant. pour modifier la valeur des Observables avant qu'on atteigne le subscribe, on va utiler la méthode pipe avec ses opérateurs, cela permet de transformer la donnée, créer des effets de bord, etc...
+    <ul>
+        <li>
+            Opérateur "map" : le plus utilisé, il permet de <b>transformer une donnée</b> d'un type A vers une donnée de type B, il prend en paramètre un callback avec un paramètre de type A, la valeur retournée dans le callback sera de type B
+        </li>
+        <li>
+            Opérateur "tap" : il permet de faire des actions à partir de la donnée de type A, mais il n'impactera jamais la donnée, il prend en paramètre un callback avec un paramètre de type A, <b>il ne renvoie rien</b>, l'opérateur suivant le tap prendra la valeur de type A
+        </li>
+        <li>
+            Opérateur "filter" : il permet de filtrer les events, permettant ainsi d'éviter des valeurs qui pourraient nuire à l'application ( undefined, null, etc... ), il prend en paramètre un callback avec un paramètre de type A, <b>la valeur retournée dans le callback devra être de type booléen</b>
+        </li>
+        <li>
+            Opérateur "switchMap" : il permet de passer d'un Observable de type A vers un Observable de type B, il prend en paramètre un callback avec un paramètre de type A, la valeur retournée dans le callback sera <b>obligatoirement un Observable</b> de type B
+        </li>
+    </ul>
+    Il existe d'autre opérateur permettant de gérer les évènements plus que la donnée, ses opérateurs sont indépendant de la valeur
+    <ul>
+        <li>
+            Opérateur "take(1)" : l'opérateur take prend en paramètre un nombre, c'est le nombre d'itération sur lequel l'observable va se déclencher, une fois ce nombre atteint, la souscription se termine automatiquement 
+        </li>
+        <li>
+            Opérateur "debounceTime(200)": cet opérateur permet d'attendre le nombre de milliseconde donnée en paramètre, cet opérateur est utilisé dans la saisie clavier, permettant ainsi de ne pas déclencher à chaque lettre par exemple
+        </li>
+        <li>
+            Opérateur "shareReplay(&#123;refCount: true, bufferSize: 1&#125;)": cet opérateur permet de partager le résultat entre toutes les souscriptions, pour un observable lié à un appel réseau, cela évite d'aller 15 fois l'url si on a 15 souscription, le résultat est partager à toutes les souscriptions
+        </li>
+        <li>
+            Opérateur "distinctUntilChanged()": cet opérateur filtre les évènements, si les valeurs précédentes et actuelles sont les mêmes, rien ne se déclenche, cela permet ici d'éviter des appels qui pourrait être redondant ( genre deux fois la même recherche de suite )
+        </li>
+        <li>
+            Opérateur "startWith()": l'opérateur startWith prend en paramètre un type A, ce type doit être identique à l'étape précédente, le premier event sur cette observable sera la valeur dans le StartWith, idéal pour les valueChanges pour les formulaires ou on utilisera this.formControl.getRawValue()
+        </li>
+    </ul>
 </div>
 
