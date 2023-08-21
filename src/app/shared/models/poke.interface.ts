@@ -1,3 +1,10 @@
+export interface IPokeList {
+  count: number;
+  next: string;
+  previous: string;
+  results: IPokemon[];
+}
+
 export interface IPokemon {
   name: string;
   url: string;
@@ -77,7 +84,7 @@ export interface ISprite {
       front_shiny: string;
       front_shiny_female: string;
     };
-    'official-artwork': {
+    "official-artwork": {
       front_default: string;
     };
   };
@@ -90,4 +97,66 @@ export interface IAbility {
   };
   is_hidden: boolean;
   slot: number;
+}
+
+export interface IPokemonAbility {
+  name: string;
+  url: string;
+}
+
+export interface IAbilityDetail {
+  effect_changes: {
+    effect_entries: {
+      effect: string;
+      language: {
+        name: string;
+        url: string;
+      };
+    }[];
+    version_group: {
+      name: string;
+      url: string;
+    };
+  }[];
+  effect_entries: {
+    effect: string;
+    language: {
+      name: string;
+      url: string;
+    };
+    short_effect: string;
+  }[];
+  flavor_text_entries: {
+    flavor_text: string;
+    language: {
+      name: string;
+      url: string;
+    };
+    version_group: {
+      name: string;
+      url: string;
+    };
+  }[];
+  generation: {
+    name: string;
+    url: string;
+  };
+  id: number;
+  is_main_series: boolean;
+  name: string;
+  names: {
+    language: {
+      name: string;
+      url: string;
+    };
+    name: string;
+  }[];
+  pokemon: {
+    is_hidden: boolean;
+    pokemon: {
+      name: string;
+      url: string;
+    };
+    slot: number;
+  }[];
 }
