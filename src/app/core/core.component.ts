@@ -1,7 +1,5 @@
 import { Component, OnDestroy, OnInit } from '@angular/core';
 import { BehaviorSubject, Observable, Subscription, debounceTime, distinctUntilChanged, filter, interval, of, switchMap, take, timer } from 'rxjs';
-import { IPokemon, IPokemonDetail } from '../shared/models/poke.interface';
-import { PokeService } from '../shared/services/poke.services';
 
 @Component({
   selector: 'app-core',
@@ -13,13 +11,12 @@ export class CoreComponent implements OnDestroy, OnInit {
   public obs2$ = timer(2000);
   public obs3$ = interval(2000);
   public obs4$ = new BehaviorSubject<number>(100);
-  public obs5$: Observable<IPokemonDetail>;
   public obs6$ = new BehaviorSubject<number>(0);
 
 
   private subs = new Subscription();
 
-  constructor(private pokeService: PokeService) {
+  constructor() {
     // un subscribe tout simple
     this.obs1$.subscribe((value: string) => {
       console.log("obs1 => ", value)
@@ -52,12 +49,6 @@ export class CoreComponent implements OnDestroy, OnInit {
         console.log("BehaviorSubject => ", value)
       })
     )
-
-    // dans le cas d'un observable basé sur un appel réseau, on configure l'observable dans le constructeur
-      this.obs5$ = this.pokeService.getPokemonById(1);
-      // tant que je subscribe pas, je ne fais pas d'appel réseau, quand je vais subscribe, alors l'appel va se dérouler
-
-      this.obs5$.subscribe((pokemon: IPokemonDetail) => console.log(pokemon))
 
     // ensuite, je créé un autre observable qui au bout de 10 seconde, va ajouter 1000 au précédent
 

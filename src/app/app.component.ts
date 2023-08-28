@@ -1,6 +1,4 @@
 import { Component, VERSION } from '@angular/core';
-import { take } from 'rxjs';
-import { PokeService } from './shared/services/poke.services';
 
 @Component({
   selector: 'my-app',
@@ -10,6 +8,6 @@ import { PokeService } from './shared/services/poke.services';
 export class AppComponent {
   name = 'Angular ' + VERSION.major;
 
-  constructor(private pokeService: PokeService) {
+  constructor() {
   }
 }
