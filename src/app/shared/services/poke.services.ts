@@ -1,6 +1,6 @@
-import { HttpClient } from '@angular/common/http';
-import { Injectable } from '@angular/core';
-import { map, Observable, of } from 'rxjs';
+import { HttpClient } from "@angular/common/http";
+import { Injectable } from "@angular/core";
+import { map, Observable, of } from "rxjs";
 import {
   IAbility,
   IAbilityDetail,
@@ -12,10 +12,13 @@ import {
   IPokemonDetail,
   IPokemonShortDetail,
   IPokemonType,
-} from '../models/poke.interface';
+  IType,
+  ITypeDetail,
+  ITypeList,
+} from "../models/poke.interface";
 
 @Injectable({
-  providedIn: 'root',
+  providedIn: "root",
 })
 export class PokeService {
   constructor(private httpClient: HttpClient) {}
@@ -31,7 +34,7 @@ export class PokeService {
   public getPokemon(): Observable<IPokemon[]> {
     /** l'url pour cette api sera la suivante : 'https://pokeapi.co/api/v2/pokemon' */
     return this.httpClient
-      .get<IPokeList>('https://pokeapi.co/api/v2/pokemon')
+      .get<IPokeList>("https://pokeapi.co/api/v2/pokemon")
       .pipe(map((val) => val.results));
   }
 
@@ -49,7 +52,7 @@ export class PokeService {
     );
   }
 
-  public getPokemonSorted(sort?: 'asc' | 'desc'): Observable<IPokemon[]> {
+  public getPokemonSorted(sort?: "asc" | "desc"): Observable<IPokemon[]> {
     /** l'url pour cette api sera la suivante : `https://pokeapi.co/api/v2/pokemon`
      * un paramètre a été ajouté, "sort" pourra être ascendant ou descendant, en fonction de la valeur qu'il prendra, les deux valeurs possible de "sort" sont 'asc' et 'desc'
      * Tu dois donc créer une condition pour transformer la donnée reçu et la trier en fonction de la valeur de sort, si aucune valeur n'est précisée, alors tu devras renvoyer le tableau comme il a été reçu
@@ -60,7 +63,7 @@ export class PokeService {
           return val;
         }
         return val.sort((a, b) =>
-          sort === 'asc'
+          sort === "asc"
             ? a.name.localeCompare(b.name)
             : b.name.localeCompare(a.name)
         );
@@ -87,7 +90,7 @@ export class PokeService {
   public getPokemonAbilities(): Observable<IAbility[]> {
     /** l'url pour cette api sera la suivante : `https://pokeapi.co/api/v2/ability`, aucune interface n'a été créé pour cette route, il faudra donc remplacer "any" par le type que tu auras créé, ce type correspondra exactement au retour de l'api*/
     return this.httpClient
-      .get<IAbilityList>('https://pokeapi.co/api/v2/ability')
+      .get<IAbilityList>("https://pokeapi.co/api/v2/ability")
       .pipe(map((val) => val.results));
   }
 
@@ -98,11 +101,11 @@ export class PokeService {
       .get<IAbilityDetail>(`https://pokeapi.co/api/v2/ability/${name}`)
       .pipe(
         map((response: IAbilityDetail) => {
-          console.log('res', response);
+          console.log("res", response);
           return response.pokemon;
         }),
         map((suite: IAbilityPokemon[]) => {
-          console.log('suite', suite);
+          console.log("suite", suite);
           return suite.map((value: IAbilityPokemon) => {
             return {
               name: value.pokemon.name,
@@ -111,9 +114,30 @@ export class PokeService {
           });
         }),
         map((finish: { name: string; slot: number }[]) => {
-          console.log('finish', finish);
+          console.log("finish", finish);
           return finish.sort((a, b) => a.slot - b.slot);
         })
       );
+  }
+
+  public getPokemonType(): Observable<IType[]> {
+    return this.httpClient
+      .get<ITypeList>("https://pokeapi.co/api/v2/type")
+      .pipe(
+        map((pokelist: ITypeList) => {
+          return pokelist.results;
+        })
+      );
+  }
+
+  public getPokemonTypeById(id: number | null): Observable<ITypeDetail> {
+    return this.httpClient.get<ITypeDetail>(
+      "https://pokeapi.co/api/v2/type/" + id
+    );
+  }
+  public getPokemonTypeByName(name: string | null): Observable<ITypeDetail> {
+    return this.httpClient.get<ITypeDetail>(
+      "https://pokeapi.co/api/v2/type/" + name
+    );
   }
 }

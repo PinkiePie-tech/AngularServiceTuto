@@ -1,1 +1,30 @@
-<p>exercice works!</p>
+<h2>Exercice</h2>
+<input type="text" class="input" placeholder="exo1" [formControl]="fcInput" />
+<select name="" id="" placeholder="Type" [formControl]="fcType">
+  <option [value]="undefined">Type</option>
+  <option *ngFor="let type of pokemonTypes$ | async" [value]="type.name">
+    {{ type.name }}
+  </option>
+</select>
+
+<div class="d-flex row">
+  <div class="flex-1 container d-flex row wrap gap-10">
+    <div class="flex-1 pokemon" *ngFor="let pokemon of pokemonSearch$ | async">
+      {{ pokemon.name }}
+      <button (click)="addPokemon(pokemon)">Add</button>
+    </div>
+  </div>
+  <hr />
+  <h2>Collected</h2>
+  <div *ngIf="!!collection$" class="flex-1 container d-flex row wrap gap-10">
+    <div
+      class="flex-1 pokemonCollec"
+      *ngFor="let pokemonCollect of collection$ | async"
+    >
+      <div class="flex-1">
+        {{ pokemonCollect.name }}
+        <button (click)="delPokemon(pokemonCollect)">del</button>
+      </div>
+    </div>
+  </div>
+</div>

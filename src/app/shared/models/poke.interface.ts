@@ -7,6 +7,10 @@ export interface IAbility {
   name: string;
   url: string;
 }
+export interface IType {
+  name: string;
+  url: string;
+}
 
 export interface IPokemonDetail {
   abilities: IAbility[];
@@ -82,7 +86,7 @@ export interface ISprite {
       front_shiny: string;
       front_shiny_female: string;
     };
-    'official-artwork': {
+    "official-artwork": {
       front_default: string;
     };
   };
@@ -102,6 +106,13 @@ export interface IPokeList {
   next: string;
   previous: string;
   results: IPokemon[];
+}
+
+export interface ITypeList {
+  count: number;
+  next: string;
+  previous: string;
+  results: IType[];
 }
 
 export interface IAbilityList {
@@ -167,4 +178,62 @@ export interface IAbilityName {
     url: string;
   };
   name: string;
+}
+export interface ITypeDetail {
+  damage_relations: {
+    double_damage_from: {
+      name: string;
+      url: string;
+    }[];
+    double_damage_to: {
+      name: string;
+      url: string;
+    }[];
+    half_damage_from: {
+      name: string;
+      url: string;
+    }[];
+    half_damage_to: {
+      name: string;
+      url: string;
+    }[];
+    no_damage_from: {
+      name: string;
+      url: string;
+    }[];
+    no_damage_to: {
+      name: string;
+      url: string;
+    }[];
+  };
+  game_indices: {
+    game_index: number;
+    generation: {
+      name: string;
+      url: string;
+    };
+  }[];
+  generation: {
+    name: string;
+    url: string;
+  };
+  id: number;
+  move_damage_class: {
+    name: string;
+    url: string;
+  };
+  moves: { name: string; url: string }[];
+  name: string;
+  names: {
+    language: {
+      name: string;
+      urm: string;
+    };
+    name: string;
+  }[];
+  past_damage_relations: [];
+  pokemon: {
+    pokemon: IPokemon;
+    slot: number;
+  }[];
 }
