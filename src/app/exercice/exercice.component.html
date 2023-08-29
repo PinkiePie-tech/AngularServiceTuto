@@ -1,1 +1,13 @@
-<p>exercice works!</p>
+<div class="d-flex column">
+  <h2 class="flex-1">Chats</h2>
+  <select [formControl]="fcSelect" class="flex-1" multiple>
+    <option *ngFor="let cat of cats$ | async" [value]="cat.id">
+      {{ cat.name }}
+    </option>
+  </select>
+  <div class="flex-3 d-flex" *ngFor="let cat of catSelected$ | async">
+    <div class="flex-1">{{ cat.name }}</div>
+    <div class="flex-1">{{ cat.weight }}</div>
+    <div class="flex-1">{{ cat.rating }}</div>
+  </div>
+</div>
