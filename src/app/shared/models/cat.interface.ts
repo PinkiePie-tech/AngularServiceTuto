@@ -1,6 +1,7 @@
 export interface ICat {
   id: number,
   name: string,
-  weight: number,
-  rating: number
+  idSize: number,
+  rating: number,
+  category: 'A' | 'B' | 'C'
 }
