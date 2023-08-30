@@ -1,7 +1,10 @@
+import { ICatSize } from "./catSize.interface";
+
 export interface ICat {
-  id: number,
-  name: string,
-  idSize: number,
-  rating: number,
-  category: 'A' | 'B' | 'C'
+  id: number;
+  name: string;
+  idSize: number;
+  size?: ICatSize;
+  rating: number;
+  category: "A" | "B" | "C";
 }

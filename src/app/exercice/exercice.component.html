@@ -1,1 +1,59 @@
-<p>exercice works!</p>
+<div class="d-flex column">
+  <h2>Chats Size</h2>
+  <form [formGroup]="formgroup">
+    <div class="flex-1 d-flex row gap-10">
+      <select formControlName="fcSelect">
+        <option *ngFor="let catego of categ$ | async" [value]="catego">
+          {{ catego }}
+        </option>
+      </select>
+      <div class="flex-1">
+        <input type="text" formControlName="fcInput" />
+      </div>
+    </div>
+    Categories
+    <ng-container *ngIf="catCateg$ | async as catCategs">
+      <div class="d-flex row">
+        <div class="flex-1">Category</div>
+        <div class="flex-1">ID</div>
+        <div class="flex-1">IDsize</div>
+        <div class="flex-1">Name</div>
+        <div class="flex-1">Rating</div>
+      </div>
+      <div class="d-flex row" *ngFor="let catCateg of catCategs">
+        <div class="flex-1">{{ catCateg.category }}</div>
+        <div class="flex-1">{{ catCateg.id }}</div>
+        <div class="flex-1">{{ catCateg.idSize }}</div>
+        <div class="flex-1">{{ catCateg.name }}</div>
+        <div class="flex-1">{{ catCateg.rating }}</div>
+      </div>
+    </ng-container>
+    <hr />
+    <div *ngFor="let cat of catsFiltered$ | async">
+      {{ cat.name }}
+    </div>
+
+    <hr />
+    Cumul Search
+    <ng-container *ngIf="catSearch$ | async as catSearch">
+      <ng-container *ngIf="catSearch.length === 0">
+        Aucuns chats de cette Catégorie
+      </ng-container>
+      <ng-container *ngIf="catSearch.length != 0">
+        <div *ngFor="let cat of catSearch">
+          {{ cat.name }} : {{ cat.category }}
+        </div>
+      </ng-container>
+    </ng-container>
+
+    <hr />
+    Size
+    <br />
+    <div class="d-flex row" *ngFor="let cat of catSize2$ | async">
+      <div class="flex-1">Name : {{ cat.name }}</div>
+      <div class="flex-1">
+        Size : {{ cat.size?.height }} cm / {{ cat.size?.weight }} kg
+      </div>
+    </div>
+  </form>
+</div>
