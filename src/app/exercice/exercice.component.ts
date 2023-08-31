@@ -12,19 +12,12 @@ export class ExerciceComponent {
   }
   
   /**
-   * Pour cette exercice, nous avons juste préparer les fichiers, à toi de construire le reste
-   * Nous allons garder le concept d'étape permettant de te guider 
+   * J'ai 0 idée !!! mais genre cerveau vide ...
    * 
-   * etape 1: créer un select permettant de choisir les devises
-   * etape 2: afficher la liste des produits ( ICourse voir IView )
-   * Pour information, IView est une extension de ICourse, IView reprend les mêmes propriétés que ICourse mais ajoute une information supplémentaire
-   * On appelle ça un héritage
-   * etape 3: lors du changement de devises, actualiser la liste des prix pour correspondre a la devise sélectionnée
+   * Un exercice de mémoire serait le mieux non ? mais j'ai pas d'idée
    * 
-   * BONUS si tu vas trop vite, que tu t'ennuies sans ton précieux coloc que tu aimes tant, que tu idolatres !!!
-   * etape 4: créer un système de panier, pour ajouter les produits dans un panier, la première étape sera juste de rajouter un seul produit
-   * 
-   * BONUS du BONUS
-   * etape 5: pouvoir rajouter un nombre de produits supérieur à 1
+   * Du coup, vu que j'ai des idées de merdes, et quelques bonnes, voici l'exercice, faire en sorte que tu puisse te démerder tout seul cette fois.
+   * Nous avons ici des idées, bonne ou mauvaise, cité par des utilisateurs différents, je souhaite donc voir la liste des idées, et la personne qui l'a écrite
+   * Un petit champ de recherche qui cherche sur les idées ( nom et/ou description) et/ou utilisateurs, et filtrer sur les bonnes ou mauvaises idées
    *  */ 
 }
