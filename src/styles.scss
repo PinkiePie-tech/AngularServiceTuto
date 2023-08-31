@@ -1,1 +1,17 @@
-/* Add application styles & imports to this file! */
+.d-flex {
+  display: flex;
+}
+
+.column {
+  flex-direction: column;
+}
+.row {
+  flex-direction: row;
+}
+.flex-1 {
+  flex: 1;
+}
+
+.gap-10 {
+  gap: 10px;
+}

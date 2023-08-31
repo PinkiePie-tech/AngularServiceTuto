@@ -1,1 +1,23 @@
-<p>exercice works!</p>
+<div class="d-flex column">
+  <div class="flex-1">Devises</div>
+  <select class="devise flex-1" [formControl]="fcSelect">
+    <option *ngFor="let devise of devises$ | async" [value]="devise.id">
+      {{ devise.name }}
+    </option>
+  </select>
+</div>
+
+<div class="d-flex column" *ngFor="let course of coursesFilt$ | async">
+  <div class="d-flex row gap-10">
+    <div>{{ course.name }}</div>
+    :
+    <div>{{ course.price }} {{ (deviseSelected$ | async)?.symbol }}</div>
+    <div>
+      <button (click)="addPanier(course)">+</button>
+      <button (click)="deletePanier(course)">-</button>
+    </div>
+  </div>
+</div>
+<hr />
+Panier :
+<div>{{ (paniers$ | async)?.products | json }}</div>
