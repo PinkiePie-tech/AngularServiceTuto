@@ -12,12 +12,15 @@ export class ExerciceComponent {
   }
   
   /**
-   * J'ai 0 idée !!! mais genre cerveau vide ...
+   * Figurine est de retour ^^
+   * Pour cette exercice, je vais te demander d'afficher les figurines présentes dans le mock figurine.data.ts
+   * Je veux voir toutes les informations qui lui sont lié, je ne veux pas voir d'id mais la valeur en face
    * 
-   * Un exercice de mémoire serait le mieux non ? mais j'ai pas d'idée
    * 
-   * Du coup, vu que j'ai des idées de merdes, et quelques bonnes, voici l'exercice, faire en sorte que tu puisse te démerder tout seul cette fois.
-   * Nous avons ici des idées, bonne ou mauvaise, cité par des utilisateurs différents, je souhaite donc voir la liste des idées, et la personne qui l'a écrite
-   * Un petit champ de recherche qui cherche sur les idées ( nom et/ou description) et/ou utilisateurs, et filtrer sur les bonnes ou mauvaises idées
-   *  */ 
+   * BONUS ( si tu t'en sors bien, c'est jouable niveau temps )
+   * Faire deux champs de recherche, un étant un select sur les matériaux, l'autre un input texte de recherche sur le nom de la figurine ou le personnage
+   * 
+   * BONUS du BONUS ( même si tu t'en sors bien, c'est pas jouable aujourd'hui ^^ )
+   * Ajouter une nouvelle interface Série, Série sera lié à l'interface character par un id (idSerie), l'affichage doit ensuite afficher la série lié au personnage
+   * */ 
 }
