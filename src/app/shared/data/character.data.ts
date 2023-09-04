@@ -1,12 +1,16 @@
 import { ICharacter } from "../models/character.model";
 
-export const dataCategory: ICharacter[] = [{
+export const dataCharacter: ICharacter[] = [
+  {
     id: 1,
-    name: 'Romain'
-}, {
+    name: "Romain",
+  },
+  {
     id: 2,
-    name: 'Georgette'
-}, {
+    name: "Georgette",
+  },
+  {
     id: 3,
-    name: 'Fabrice'
-}]
+    name: "Fabrice",
+  },
+];

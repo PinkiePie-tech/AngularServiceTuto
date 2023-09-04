@@ -1,0 +1,19 @@
+.title {
+  background-color: #6c698d;
+  min-height: 40px;
+  line-height: 40px;
+  color: white;
+  font-weight: 600;
+  text-align: center;
+}
+
+.datas {
+  text-align: center;
+  border: 1px solid lavender;
+  min-height: 30px;
+  line-height: 30px;
+}
+
+.form {
+  text-align: center;
+}

@@ -1,1 +1,45 @@
-<p>exercice works!</p>
+<h2>Figurines</h2>
+<form class="form d-flex row" [formGroup]="formgroup">
+  <div class="flex-1">
+    <select formControlName="fcSelect">
+      <option *ngFor="let mat of materials$ | async" [value]="mat.id">
+        {{ mat.name }}
+      </option>
+    </select>
+  </div>
+  <div class="flex-1">
+    <input type="text" placeholder="search" formControlName="fcInput" />
+  </div>
+</form>
+
+<div class="title d-flex row">
+  <div class="flex-1">id</div>
+  <div class="flex-1">Name</div>
+  <div class="flex-1">Format</div>
+  <div class="flex-1">Materiel</div>
+  <div class="flex-1">Prix</div>
+  <div class="flex-1">Personnages</div>
+</div>
+
+<div class="d-flex column">
+  <div
+    class="datas d-flex row flex-1"
+    *ngFor="let fig of figureSearch$ | async"
+  >
+    <div class="flex-1">{{ fig.id }}</div>
+    <div class="flex-1">{{ fig.name }}</div>
+    <div class="flex-1">{{ fig.format }}</div>
+    <div class="flex-1">{{ fig.material?.name }}</div>
+    <div class="flex-1">
+      {{ fig.price.value }}{{ fig.price.devise?.symbol }}
+    </div>
+    <div class="flex-1 d-flex column">
+      <ng-container *ngFor="let char of fig.characters">
+        <div class="flex-1">{{ char.name }}</div>
+      </ng-container>
+    </div>
+  </div>
+</div>
+
+<!-- id: 2, name: 'Figurine B', format: '1/6', idMaterial: 2, price: { value: 500,
+idDevise: 2 }, idCharacter: [2, 3] -->
