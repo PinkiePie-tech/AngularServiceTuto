@@ -1,1 +1,47 @@
-<p>exercice works!</p>
+<h2>Figurine</h2>
+<div class="d-flex row">
+  <div class="flex-1">
+    <input type="text" />
+  </div>
+  <div class="flex-1">
+    <select name="" id="">
+      <option value=""></option>
+    </select>
+  </div>
+</div>
+<hr />
+<div class="title d-flex column">
+  <div class="d-flex row flex-1">
+    <div class="flex-1">id</div>
+    <div class="flex-1">Name</div>
+    <div class="flex-1">Format</div>
+    <div class="flex-1 d-flex column">Material</div>
+    <div class="flex-1">Prix devise</div>
+    <div class="flex-1 d-flex column">Character</div>
+  </div>
+</div>
+
+<div class="container d-flex column">
+  <div class="d-flex row flex-1" *ngFor="let figure of fillModel$ | async">
+    <div class="flex-1">{{ figure.id }}</div>
+    <div class="flex-1">{{ figure.name }}</div>
+    <div class="flex-1">{{ figure.format }}</div>
+    <div class="flex-1 d-flex column">
+      <div class="flex-1">{{ figure.material.name }}</div>
+    </div>
+    <div class="flex-1">
+      {{ figure.price.value }}{{ figure.price.devise.symbol }}
+    </div>
+    <div class="flex-1 d-flex column" *ngFor="let char of figure.character">
+      <div class="flex-1">{{ char.name }}</div>
+    </div>
+  </div>
+</div>
+
+<!-- 
+id: number;
+name: string;
+format: string;
+idMaterial: IMaterial;
+price: IPrice;
+idCharacter: ICharacter[]; -->
