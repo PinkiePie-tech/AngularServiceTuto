@@ -9,6 +9,8 @@ import { ICharacter } from "../shared/models/character.model";
 import { IDevise } from "../shared/models/devise.model";
 import { IMaterial } from "../shared/models/material.model";
 import { FormControl, FormGroup } from "@angular/forms";
+import { ISerie } from "../shared/models/serie.model";
+import { SerieService } from "../shared/Service/serie.service";
 
 @Component({
   selector: "app-exercice",
@@ -22,6 +24,7 @@ export class ExerciceComponent {
   public materials$: Observable<IMaterial[]>;
   public figureDisplay$: Observable<IFigurineView[]>;
   public figureSearch$: Observable<IFigurineView[]>;
+  public series$: Observable<ISerie[]>;
 
   public formgroup = new FormGroup({
     fcSelect: new FormControl<number>(0),
@@ -32,19 +35,21 @@ export class ExerciceComponent {
     private characterService: CharacterService,
     private deviseService: DeviseService,
     private figurineService: FigurineService,
-    private materialService: MaterialService
+    private materialService: MaterialService,
+    private serieService: SerieService
   ) {
     this.characters$ = this.characterService.getCharacter();
     this.devises$ = this.deviseService.getDevice();
     this.figurines$ = this.figurineService.getFigurines();
     this.materials$ = this.materialService.getMaterial();
+    this.series$ = this.serieService.getSerie();
 
-    this.figureDisplay$ = combineLatest(
+    this.figureDisplay$ = combineLatest([
       this.characters$,
       this.devises$,
       this.figurines$,
-      this.materials$
-    ).pipe(
+      this.materials$,
+    ]).pipe(
       map(
         ([characters, devises, figurines, materials]: [
           ICharacter[],
@@ -79,7 +84,7 @@ export class ExerciceComponent {
       )
     );
 
-    this.figureSearch$ = combineLatest(
+    this.figureSearch$ = combineLatest([
       this.formgroup
         .get("fcSelect")!
         .valueChanges.pipe(
@@ -90,8 +95,8 @@ export class ExerciceComponent {
         .valueChanges.pipe(
           startWith(this.formgroup.get("fcInput")?.getRawValue())
         ),
-      this.figureDisplay$
-    ).pipe(
+      this.figureDisplay$,
+    ]).pipe(
       map(
         ([select, input, listeFig]: [
           number | null,
@@ -126,6 +131,24 @@ export class ExerciceComponent {
       )
     );
   } // fin construct
+
+  public getSerieByCharacterID(
+    ids: ICharacter[]
+  ): Observable<(ISerie | undefined)[]> {
+    return combineLatest([this.series$, this.characters$]).pipe(
+      map(([series, characters]: [ISerie[], ICharacter[]]) => {
+        return characters
+          .filter((char: ICharacter) => {
+            return ids.find((id: ICharacter) => {
+              return char.id === id.id;
+            });
+          }) // liste des chars dans ta figurine => ICharacter[];
+          .map((character: ICharacter) => {
+            return series.find((serie: ISerie) => serie.id === character.id);
+          });
+      })
+    );
+  }
 
   /**
    * Figurine est de retour ^^
