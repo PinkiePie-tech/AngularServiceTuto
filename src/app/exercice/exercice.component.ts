@@ -26,6 +26,8 @@ export class ExerciceComponent {
   public figureSearch$: Observable<IFigurineView[]>;
   public series$: Observable<ISerie[]>;
 
+  public charBySerie: Observable<ISerie[]>;
+
   public formgroup = new FormGroup({
     fcSelect: new FormControl<number>(0),
     fcInput: new FormControl<string>(""),
@@ -129,6 +131,14 @@ export class ExerciceComponent {
             });
         }
       )
+    );
+
+    this.charBySerie = combineLatest([this.series$, this.characters$]).pipe(
+      map(([series, chars]: [ISerie[], ICharacter[]]) => {
+        return series.filter((serie: ISerie) => {
+          return;
+        });
+      })
     );
   } // fin construct
 
