@@ -1,0 +1,27 @@
+<form [formGroup]="formgroup">
+  <fieldset>
+    <legend>Formulaire de Recette</legend>
+    <div class="d-flex row">
+      <div class="d-flex column">
+        <div class="flex-1">
+          <input
+            type="text"
+            placeholder="Nom recette"
+            formControlName="nomRecette"
+          />
+        </div>
+        <div class="flex-1">
+          <textarea
+            cols="30"
+            rows="10"
+            formControlName="instructions"
+            placeholder="Instructions"
+          ></textarea>
+        </div>
+      </div>
+      <div class="flex-1">
+        <app-form-ing></app-form-ing>
+      </div>
+    </div>
+  </fieldset>
+</form>
