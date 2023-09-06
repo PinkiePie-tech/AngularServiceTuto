@@ -1,15 +1,18 @@
 export interface IArm {
-    id: number,
-    position: 'gauche' | 'droite',
-    idHand: number
+  id: number;
+  position: "gauche" | "droite";
+  idHand: number;
 }
 
-export const dataLeg: IArm[] = [{
+export const dataArm: IArm[] = [
+  {
     id: 1,
-    position: 'gauche',
-    idHand: 0
-}, {
+    position: "gauche",
+    idHand: 0,
+  },
+  {
     id: 2,
-    position: 'droite',
-    idHand: 1
-}]
+    position: "droite",
+    idHand: 1,
+  },
+];
