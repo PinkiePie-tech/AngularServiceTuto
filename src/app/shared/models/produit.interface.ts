@@ -1,4 +1,4 @@
-export interface IProduit {
-    id: number;
-    name: string;
+export interface IIngredient {
+  id: number;
+  name: string;
 }
