@@ -3,7 +3,7 @@ import { Component } from '@angular/core';
 @Component({
   selector: 'app-exercice',
   templateUrl: './exercice.component.html',
-  styleUrls: ['./exercice.component.css']
+  styleUrls: ['./exercice.component.scss']
 })
 export class ExerciceComponent {
 
@@ -13,8 +13,7 @@ export class ExerciceComponent {
 
   /**
    * Enoncé assez simple mais résolution complexe
-   * Nous avons l'interface nommé Human.model.ts qui doit être rempli, notre source de donnée, ICorps
-   * Je souhaite que pour chaque ICorps, on obtienne un Human ^^
-   * Aujourd'hui, tu seras notre Dr Frankenstein !!! Go créer des monstres
+   * Créons un formulaire pour créer une voiture, aujourd'hui, je ne propose pas d'interface pour une voiture, je te laisse la créé
+   * 
    */
 }
