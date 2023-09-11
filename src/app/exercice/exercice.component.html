@@ -1,1 +1,51 @@
-<p>exercice works!</p>
+<h2>Voitures</h2>
+
+<form class="center" [formGroup]="formgroup">
+  <fieldset class="d-flex column flex-1">
+    <legend class="flex-1">Voiture</legend>
+    <select class="flex-1" formControlName="marque">
+      <option *ngFor="let marque of marques$ | async" [value]="marque">
+        {{ marque }}
+      </option>
+    </select>
+    <input
+      class="flex-1"
+      type="text"
+      placeholder="model"
+      formControlName="model"
+    />
+  </fieldset>
+  <fieldset class="d-flex column flex-1">
+    <legend>Siege</legend>
+
+    <select class="flex-1" formControlName="idSiege">
+      <option *ngFor="let siege of sieges$ | async" [value]="siege.id">
+        {{ siege.type }} - {{ siege.matiere }}
+      </option>
+    </select>
+  </fieldset>
+  <fieldset class="d-flex column flex-1">
+    <legend>Pneus</legend>
+
+    <select class="flex-1" formControlName="idPneu">
+      <option *ngFor="let pneu of pneus$ | async" [value]="pneu.id">
+        {{ pneu.taille }} - {{ pneu.type }}
+      </option>
+    </select>
+  </fieldset>
+  <fieldset class="d-flex column flex-1">
+    <legend>Moteur</legend>
+    <select formControlName="idMoteur">
+      <option *ngFor="let moteur of moteurs$ | async" [value]="moteur.id">
+        {{ moteur.cylindre }} - {{ moteur.consommation }} -
+        {{ moteur.typeEssenceId }}
+      </option>
+    </select>
+  </fieldset>
+</form>
+<button (click)="voitureAdd()">Add</button><button>Reset</button>
+
+<hr />
+<div class="" *ngFor="let added of voitures$ | async">
+  {{ added | json }}
+</div>
