@@ -9,7 +9,7 @@ export interface IRecette {
 
 export interface IRecetteProduit {
   id: number;
-  nbUnity: number; // désigne le nombre d'unité, si la valeur est 5, unity est 'gramme', on aura donc 5 grammes
-  unity: string; // désigne l'unité, cuillère à soupe, gramme, litre, ml, etc
-  ingredient: IIngredient;
+  nbUnity: number | null; // désigne le nombre d'unité, si la valeur est 5, unity est 'gramme', on aura donc 5 grammes
+  unity: number | null; // désigne l'unité, cuillère à soupe, gramme, litre, ml, etc
+  ingredient: number | null;
 }

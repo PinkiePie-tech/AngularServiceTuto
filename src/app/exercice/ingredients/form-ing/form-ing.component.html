@@ -1,21 +1,25 @@
-<form>
+<form [formGroup]="formgroup">
   <fieldset>
     <legend>Ingrédients</legend>
     <div class="d-flex row">
       <div class="flex-1">
-        <select>
-          <option value="">Ingredients</option>
+        <select formControlName="ingredient">
+          <option *ngFor="let ing of ingredients$ | async" [value]="ing.id">
+            {{ ing.name }}
+          </option>
         </select>
       </div>
       <div class="flex-1">
-        <input type="number" min="0" placeholder="qtt" />
+        <input type="number" min="0" placeholder="qtt" formControlName="qtt" />
       </div>
       <div class="flex-1">
-        <select>
-          <option value="">Mesures</option>
+        <select formControlName="mesure">
+          <option *ngFor="let mesure of mesures$ | async" [value]="mesure.id">
+            {{ mesure.name }}
+          </option>
         </select>
       </div>
-      <div class="flex-1"><button>add</button></div>
+      <div class="flex-1"><button (click)="addIngredient()">add</button></div>
     </div>
     <app-liste-ing></app-liste-ing>
   </fieldset>

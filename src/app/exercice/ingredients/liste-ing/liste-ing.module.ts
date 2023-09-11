@@ -4,7 +4,7 @@ import { ListeIngComponent } from "./liste-ing.component";
 
 @NgModule({
   declarations: [ListeIngComponent],
-  imports: [CommonModule, ListeIngModule],
+  imports: [CommonModule],
   exports: [ListeIngComponent],
 })
 export class ListeIngModule {}
