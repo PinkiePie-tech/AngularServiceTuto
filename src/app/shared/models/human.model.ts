@@ -11,17 +11,19 @@ export interface IHuman {
 }
 
 export interface IHumanLeg {
+  id: number;
   position: string;
   foot: IHumanFoot;
 }
 
 export interface IHumanFoot {
+  id: number;
   fingerNames: string[];
 }
 
 export interface IHumanArm {
   position: string;
-  foot: IHumanHand;
+  hand: IHumanHand;
 }
 
 export interface IHumanHand {

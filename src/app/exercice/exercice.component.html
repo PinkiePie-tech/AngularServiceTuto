@@ -9,6 +9,10 @@
   <div class="flex-1">breast</div>
 </div>
 
+<ng-container *ngFor="let human of humans$ | async">
+  {{ human | json }}
+</ng-container>
+
 <!--  afficher  
     
     human 
