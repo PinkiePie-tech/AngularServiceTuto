@@ -1,0 +1,22 @@
+<fieldset>
+  <legend>Liste de Recette</legend>
+  <div class="d-flex column recette" *ngFor="let recette of inRecettes | async">
+    <div class="flex-1 title">{{ recette.name }}</div>
+    <div class="flex-1 d-flex row">
+      <div class="flex-1">Instructions : {{ recette.description }}</div>
+      <div class="flex-3">
+        <div
+          class="flex-1 d-flex column"
+          *ngFor="let ing of recette.ingredient"
+        >
+          <div class="d-flex row">
+            <div class="flex-1">
+              {{ ing.ingredient.name }}
+            </div>
+            <div class="flex-1">x{{ ing.nbUnity }} {{ ing.unity }}</div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</fieldset>

@@ -1,0 +1,11 @@
+<div class="title d-flex row">
+  <div class="flex-1">Ingrédient</div>
+  <div class="flex-1">Qté</div>
+  <div class="flex-1">actions</div>
+</div>
+<div class="d-flex row" *ngFor="let ingAdded of ingInput">
+  <!-- {{ ingAdded | json }} -->
+  <div class="flex-1 datas">{{ ingAdded.ingredient.name }}</div>
+  <div class="flex-1 datas">{{ ingAdded.nbUnity }} - {{ ingAdded.unity }}</div>
+  <div class="flex-1 datas del" (click)="del(ingAdded.id)">X</div>
+</div>
