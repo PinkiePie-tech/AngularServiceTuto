@@ -8,8 +8,17 @@ import { CoreModule } from './core/core.module';
 import { ExerciceModule } from './exercice/exercice.module';
 
 @NgModule({
-  imports: [BrowserModule, FormsModule, HttpClientModule, CoreModule, ExerciceModule],
+  imports: [
+    BrowserModule,
+    FormsModule,
+    HttpClientModule,
+    CoreModule,
+    ExerciceModule
+  ],
   declarations: [AppComponent],
   bootstrap: [AppComponent],
 })
-export class AppModule {}
+export class AppModule {
+  constructor() {
+  }
+}
