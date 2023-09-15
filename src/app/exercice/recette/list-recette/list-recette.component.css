@@ -6,3 +6,10 @@
 .recette {
   border: 1px solid purple;
 }
+.action {
+  justify-content: flex-end;
+  gap: 10px;
+}
+.action .flex-1 {
+  max-width: min-content;
+}

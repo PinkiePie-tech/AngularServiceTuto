@@ -8,9 +8,8 @@ import { IRecette } from "src/app/shared/models/recette.interface";
   styleUrls: ["./recette.component.css"],
 })
 export class RecetteComponent {
-  public recettes$ = new BehaviorSubject<IRecette[]>([]);
-
-  public outRecettes(recettes: IRecette[]) {
-    this.recettes$.next(recettes);
-  }
+  //public recettes$ = new BehaviorSubject<IRecette[]>([]);
+  // public outRecettes(recettes: IRecette[]) {
+  //   this.recettes$.next(recettes);
+  // }
 }

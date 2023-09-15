@@ -3,7 +3,7 @@
   <div class="flex-1">Qté</div>
   <div class="flex-1">actions</div>
 </div>
-<div class="d-flex row" *ngFor="let ingAdded of ingInput">
+<div class="d-flex row" *ngFor="let ingAdded of ingBs$ | async">
   <!-- {{ ingAdded | json }} -->
   <div class="flex-1 datas">{{ ingAdded.ingredient.name }}</div>
   <div class="flex-1 datas">{{ ingAdded.nbUnity }} - {{ ingAdded.unity }}</div>

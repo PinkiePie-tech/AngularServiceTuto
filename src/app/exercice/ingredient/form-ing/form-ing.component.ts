@@ -14,9 +14,10 @@ import { IngredientsService } from "src/app/shared/service/ingredients.service";
 export class FormIngComponent {
   public ingredients$: Observable<IIngredient[]>;
   public mesures$: Observable<IMesure[]>;
-  public add$ = new BehaviorSubject<IRecetteProduit[]>([]);
 
-  @Output() outListeIng = new EventEmitter<IRecetteProduit[]>();
+  public addIng$: BehaviorSubject<IRecetteProduit[]>;
+
+  //@Output() outListeIng = new EventEmitter<IRecetteProduit[]>();
 
   private id = 0;
 
@@ -27,12 +28,18 @@ export class FormIngComponent {
   });
 
   constructor(private ingService: IngredientsService) {
+    this.addIng$ = this.ingService.addIng$;
     this.ingredients$ = this.ingService.getIngredients();
     this.mesures$ = this.ingService.getMesures();
+
+    this.ingService.reset$.subscribe(() => {
+      this.formgroup.reset();
+      this.addIng$.next([]);
+    });
   }
 
   public addIngredient() {
-    let recette: IRecetteProduit[] = this.add$.getValue();
+    let recette: IRecetteProduit[] = this.addIng$.getValue();
 
     combineLatest([this.ingredients$, this.mesures$])
       .pipe(
@@ -51,8 +58,8 @@ export class FormIngComponent {
       )
       .subscribe((rec: IRecetteProduit) => {
         recette.push(rec);
-        this.add$.next(recette);
-        this.outListeIng.emit(recette);
+        this.addIng$.next(recette);
+        // this.outListeIng.emit(recette);
         console.log(recette);
       });
 

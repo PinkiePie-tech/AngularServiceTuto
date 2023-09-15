@@ -1,6 +1,9 @@
 <fieldset>
   <legend>Liste de Recette</legend>
-  <div class="d-flex column recette" *ngFor="let recette of inRecettes | async">
+  <div
+    class="d-flex column recette"
+    *ngFor="let recette of recettesBs$ | async"
+  >
     <div class="flex-1 title">{{ recette.name }}</div>
     <div class="flex-1 d-flex row">
       <div class="flex-1">Instructions : {{ recette.description }}</div>
@@ -17,6 +20,10 @@
           </div>
         </div>
       </div>
+    </div>
+    <div class="flex-1 action d-flex row">
+      <div class="flex-1" (click)="del(recette.id)">X</div>
+      <div class="flex-1" (click)="edit(recette)">EDIT</div>
     </div>
   </div>
 </fieldset>
