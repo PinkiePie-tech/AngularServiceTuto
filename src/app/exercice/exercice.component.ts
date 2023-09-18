@@ -26,6 +26,16 @@ export class ExerciceComponent {
    * Etape 2, récupérer la liste des armes, il serait intéressant de la combiner avec les personnages et le type d'arme qu'il accepte, ce pauvre Jean voudrait pas porter une énorme claymore :D
    * Etape 3, récupérer la liste des artefacts, les artefacts seront lié au personnage par leur type, un personnage anemo aura un bonus anemo, feu avec feu, etc ...
    * 
+   * Journée 2
+   * Etape 1 sur 1, j'aimerai pouvoir réaliser  la création d'un build pour un personnage, pour l'instant, on ignore l'étape d'enregistrement, et on se concentre sur la saisie
+   * Pour saisir un build, je dois choisir le personnage en premier abord, si pas de personnage sélectionné, alors les armes ainsi que les aterfacts seront grisés ( disabled )
+   * Lors du choix du personnage, les champs armes et artefacts vont se débloquer
+   * Pour le champs armes, la liste des choix devra correspondre aux personnage, par exemple, si je sélectionne Jean, alors j'aurai que des épées qui me seront proposées
+   * Pour les champs Artefacts, ils seront au nombre de 5, en fonction de la sélection, les bonus devront être affichés,
+   * - si je prend par exemple 2 pièces d'un set et 3 pièces d'un autre, 2 bonus s'afficheront
+   * - si je prend par exemple 4 pièces d'un set et 1 pièces d'un autre, 2 bonus s'afficheront
+   * - si je prend par exemple 2 pièces d'un set, 2 pièces d'un autre, et encore une pièce d'un autre, 2 bonus s'afficheront
+   * 
    * 
    * 
    * 
