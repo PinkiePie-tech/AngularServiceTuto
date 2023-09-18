@@ -28,7 +28,7 @@ export class ExerciceComponent {
    * 
    * Journée 2
    * Etape 1 sur 1, j'aimerai pouvoir réaliser  la création d'un build pour un personnage, pour l'instant, on ignore l'étape d'enregistrement, et on se concentre sur la saisie
-   * Pour saisir un build, je dois choisir le personnage en premier abord, si pas de personnage sélectionné, alors les armes ainsi que les aterfacts seront grisés ( disabled )
+   * Pour saisir un build, je dois choisir le personnage en premier abord, si pas de personnage sélectionné, alors les armes ainsi que les artefacts seront grisés ( disabled )
    * Lors du choix du personnage, les champs armes et artefacts vont se débloquer
    * Pour le champs armes, la liste des choix devra correspondre aux personnage, par exemple, si je sélectionne Jean, alors j'aurai que des épées qui me seront proposées
    * Pour les champs Artefacts, ils seront au nombre de 5, en fonction de la sélection, les bonus devront être affichés,
