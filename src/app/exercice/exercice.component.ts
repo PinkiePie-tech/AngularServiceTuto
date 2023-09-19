@@ -37,15 +37,17 @@ export class ExerciceComponent {
    * - si je prend par exemple 2 pièces d'un set, 2 pièces d'un autre, et encore une pièce d'un autre, 2 bonus s'afficheront
    * 
    * 
+   * Journée 3
+   * https://mhw-db.com/fr/armor
+   * https://mhw-db.com/fr/monsters
+   * https://mhw-db.com/fr/weapons
    * 
-   * 
-   * 
-   * 
-   * 
-   * 
-   * 
-   * 
-   * 
+   * Nouvelle API pour plus de fun ^^
+   * Parlons Monster Hunter, et faisons un travail utile ... sur MH World, pas trouvé pour "now" 
+   * Du coup on a une liste de monstre, une liste d'armure, et une liste d'arme
+   * Donc pour un monstre, une liste des armes pour lui défoncer sa gueule
+   * Donc pour un monstre, une liste des armures pour ne pas se faire défoncer sa gueule
+   * Le concept, une liste de monstre, on en sélectionne un, et quand c'est le cas, on affiche les armes contre laquelle le monstre a des faiblesses, et l'armure pour résister à l'élément
    * 
    * 
    * 
