@@ -1,1 +1,44 @@
-<p>exercice works!</p>
+<h2>Genshin</h2>
+<form [formGroup]="formgroup">
+  <select formControlName="character">
+    <option [value]="null">character</option>
+    <option *ngFor="let char of characters$ | async" [value]="char.id">
+      {{ char.name }}
+    </option>
+  </select>
+  <select formControlName="weapon">
+    <option *ngFor="let weap of weaponByChar$ | async" [value]="weap.id">
+      {{ weap.name }} • {{ weap.type }}
+    </option>
+  </select>
+  <fieldset [formGroup]="formArtifacts">
+    <legend>Artifacts</legend>
+    <ng-container *ngIf="artifacts$ | async as artifacts">
+      <select formControlName="circlet">
+        <option *ngFor="let art of artifacts" [value]="art.id">
+          {{ art.name }}
+        </option>
+      </select>
+      <select formControlName="gobelet">
+        <option *ngFor="let art of artifacts" [value]="art.id">
+          {{ art.name }}
+        </option>
+      </select>
+      <select formControlName="flower">
+        <option *ngFor="let art of artifacts" [value]="art.id">
+          {{ art.name }}
+        </option>
+      </select>
+      <select formControlName="sand">
+        <option *ngFor="let art of artifacts" [value]="art.id">
+          {{ art.name }}
+        </option>
+      </select>
+      <select formControlName="atq">
+        <option *ngFor="let art of artifacts" [value]="art.id">
+          {{ art.name }}
+        </option>
+      </select>
+    </ng-container>
+  </fieldset>
+</form>
