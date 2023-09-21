@@ -6,10 +6,10 @@ import { IWeapon } from "../model/weapon.interface";
 @Injectable({
   providedIn: "root",
 })
-export class WeaponService {
+export class WeaponsService {
   constructor(private http: HttpClient) {}
 
   public getWeapons(): Observable<IWeapon[]> {
-    return this.http.get<IWeapon[]>("https://genshinlist.com/api/weapons");
+    return this.http.get<IWeapon[]>("https://mhw-db.com/fr/monsters");
   }
 }
