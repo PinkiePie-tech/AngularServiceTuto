@@ -213,13 +213,26 @@ export class ExerciceComponent {
             }
           }
         });
-        console.log(double);
+        //console.log(double);
 
         return double;
         // });
       })
     );
-    this.bonusArt$.subscribe();
+    this.bonusArt$.subscribe((arts: IArtifact[]) => {
+      console.log("subs: ", arts);
+
+      // arts.forEach((art: IArtifact) => {
+      //   console.log("id ", arts[art.id]);
+
+      //   // if (arts[art.id] < 4 && arts[art.id] > 1) {
+      //   //   console.log("bonus 2");
+      //   // }
+      //   // if (arts[art.id] > 3) {
+      //   //   console.log("bonus 4");
+      //   // }
+      // });
+    });
 
     // console.log("convert : ", this.convertDate("Feb 2th"));
   } //fin construct
