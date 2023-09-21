@@ -1,5 +1,3 @@
-import { ICharacter, ICharacterDTO } from "./character.interface";
-
 export interface IWeapon {
   id: number;
   name: string;
