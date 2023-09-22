@@ -10,6 +10,6 @@ export class WeaponsService {
   constructor(private http: HttpClient) {}
 
   public getWeapons(): Observable<IWeapon[]> {
-    return this.http.get<IWeapon[]>("https://mhw-db.com/fr/monsters");
+    return this.http.get<IWeapon[]>("https://mhw-db.com/monsters");
   }
 }

@@ -10,6 +10,6 @@ export class ArmorService {
   constructor(private http: HttpClient) {}
 
   public getArmors(): Observable<IArmor[]> {
-    return this.http.get<IArmor[]>("https://mhw-db.com/fr/armor");
+    return this.http.get<IArmor[]>("https://mhw-db.com/armor");
   }
 }

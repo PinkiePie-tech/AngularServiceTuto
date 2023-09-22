@@ -10,6 +10,6 @@ export class MonstersService {
   constructor(private http: HttpClient) {}
 
   public getMonsters(): Observable<IMonster[]> {
-    return this.http.get<IMonster[]>("https://mhw-db.com/fr/monsters");
+    return this.http.get<IMonster[]>("https://mhw-db.com/monsters");
   }
 }
