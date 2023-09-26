@@ -19,6 +19,7 @@ export class ExerciceComponent {
   public armors$: Observable<IArmor[]>;
 
   public weaponsWeak$: Observable<IWeapon[]>;
+  public armorsResist$: Observable<IArmor[]>;
 
   public formgroup = new FormGroup({
     monster: new FormControl<number | null>(null),
@@ -37,6 +38,52 @@ export class ExerciceComponent {
 
     //////////////
 
+    this.armorsResist$ = combineLatest([
+      this.armors$,
+      this.monsters$,
+      this.formgroup.get("monster")!.valueChanges,
+    ]).pipe(
+      map(
+        ([armors, monsters, monsterSelected]: [
+          IArmor[],
+          IMonster[],
+          number | null
+        ]) => {
+          let findMonster = monsters.find(
+            (monster: IMonster) => monster.id == monsterSelected
+          );
+          return armors.filter((armor: IArmor) => {
+            return findMonster?.elements?.find(
+              (weakMon: "fire" | "dragon" | "ice" | "thunder" | "water") => {
+                if (armor.resistances[weakMon] > 0) {
+                  return true;
+                }
+                return false;
+                // if (armor.resistances.dragon > 0) {
+                //   if (weakMon === "dragon") {
+                //     return true;
+                //   }
+                // }
+                // if (armor.resistances.fire > 0) {
+                //   if (weakMon === "fire") {
+                //     return true;
+                //   }
+                // }
+                // if (armor.resistances.ice > 0) {
+                // }
+                // if (armor.resistances.thunder > 0) {
+                // }
+                // if (armor.resistances.water > 0) {
+                // }
+                // return false;
+              }
+            );
+          });
+        }
+      )
+    );
+    this.armorsResist$.subscribe(console.log);
+
     this.weaponsWeak$ = combineLatest([
       this.formgroup.get("monster")!.valueChanges,
       this.monsters$,
@@ -48,32 +95,59 @@ export class ExerciceComponent {
           IMonster[],
           IWeapon[]
         ]) => {
-          return monsters
-            .find((monster: IMonster) => {
-              return monster.id == monsterSelected;
-            })
-            ?.weaknesses.map(
-              (weaknessMons: {
-                element: string;
-                stars: number;
-                condition: string;
+          let findMonster = monsters.find((monster: IMonster) => {
+            return monster.id == monsterSelected;
+          });
+
+          return weapons.filter((weapon: IWeapon) => {
+            return weapon.elements.find(
+              (weaknessWeap: {
+                type: string;
+                damage: number;
+                hidden: boolean;
               }) => {
-                return weapons.map((weapon: IWeapon) => {
-                  return weapon.elements.filter(
-                    (weaknessWeap: {
-                      type: string;
-                      damage: number;
-                      hidden: boolean;
-                    }) => {
-                      return weaknessMons.element === weaknessWeap.type;
-                    }
-                  );
-                });
+                return findMonster?.weaknesses.find(
+                  (weaknessMons: {
+                    element: string;
+                    stars: number;
+                    condition: string;
+                  }) => {
+                    return weaknessMons.element == weaknessWeap.type;
+                  }
+                );
               }
             );
+          });
         }
       )
     );
+
+    // return monsters
+    //   .find((monster: IMonster) => {
+    //     return monster.id == monsterSelected;
+    //   })
+    //   ?.weaknesses.map(
+    //     (weaknessMons: {
+    //       element: string;
+    //       stars: number;
+    //       condition: string;
+    //     }) => {
+    //       return weapons.map((weapon: IWeapon) => {
+    //         return weapon.elements.filter(
+    //           (weaknessWeap: {
+    //             type: string;
+    //             damage: number;
+    //             hidden: boolean;
+    //           }) => {
+    //             return weaknessMons.element === weaknessWeap.type;
+    //           }
+    //         );
+    //       });
+    //     }
+    //   );
+    //     }
+    //   )
+    // );
   } //fin constructor
 }
 

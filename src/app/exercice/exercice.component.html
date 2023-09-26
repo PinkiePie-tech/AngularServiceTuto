@@ -13,8 +13,13 @@
     <div class="flex-1 liste">ARMORS</div>
   </div>
 
-  <div class="flex-1 d-flex row">
-    <div class="flex-1">weap</div>
+  <div class="flex-1 d-flex row" *ngFor="let weapon of weaponsWeak$ | async">
+    <div class="flex-1">
+      {{ weapon.name }}
+      <ng-container *ngFor="let element of weapon.elements"
+        >{{ element["type"] }}
+      </ng-container>
+    </div>
     <div class="flex-1">armor</div>
   </div>
 </form>
