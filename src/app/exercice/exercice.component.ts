@@ -91,11 +91,17 @@ export class ExerciceComponent {
  * Donc pour un monstre, une liste des armures pour ne pas se faire défoncer sa gueule
  * Le concept, une liste de monstre, on en sélectionne un, et quand c'est le cas, on affiche les armes contre laquelle le monstre a des faiblesses, et l'armure pour résister à l'élément
  *
+ * Journée 4
+ * https://mhw-db.com/skills
+ * Cette route donne la liste des skills, mettre en place un select pour sélectionner un des skills et proposer les armures associés à ce skill,
+ * Pour une fois, les id sont disponibles :D
  *
- *
- *
- *
- *
+ * Pour finir, nous allons créer des sets d'armures, pour cela, nous devons sélectionner 5 pièces d'armures, tête, torse, ceinture, etc ...
+ * On aura donc 5 select pour les 5 emplacements, chaque select devra être filtré en fonction du type, pour un emplacement tête, n'afficher que les armures tête
+ * 
+ * Une fois les selects mis en place, nous allons faire un résumé de ce qui a été sélectionné au niveau des skills ainsi que leurs niveaux
+ * Les descriptions des skills devront donc être affiché correspondant au niveau
+ * 
  *
  *
  *
